@@ -40,12 +40,13 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Video Game Catalogue",
+            "VIDEO GAME CATALOGUE",
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 16,
-                letterSpacing: 1.5),
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 16,
+              letterSpacing: 1.5,
+            ),
           ),
           actions: [
             IconButton(
@@ -61,7 +62,51 @@ class _MyAppState extends State<MyApp> {
           // backgroundColor: Theme.of(context).primaryColor,
           shadowColor: Colors.black,
         ),
-        drawer: Drawer(),
+        drawer: Drawer(
+          backgroundColor: Colors.blueGrey[500],
+          child: Column(
+            children: [
+              DrawerHeader(
+                child: Icon(Icons.gamepad_rounded,
+                    size: 80,
+                    color: Colors.blue[700],
+                    shadows: [
+                      Shadow(
+                          color: Colors.black,
+                          blurRadius: 5,
+                          offset: Offset(0, 5))
+                    ]),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("B R O W S E"),
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text("P R O F I L E"),
+              ),
+              ListTile(
+                leading: Icon(Icons.star),
+                title: Text("F A V O R I T E S"),
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text("S E T T I N G S"),
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("L O G O U T"),
+              ),
+              Spacer(),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text("A B O U T"),
+              ),
+            ],
+          ),
+        ),
+        // bottom navigation bar
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _navigateBottomBar,

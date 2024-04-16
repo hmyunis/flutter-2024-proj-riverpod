@@ -20,12 +20,12 @@ class _GameItemState extends State<GameItem> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context, // Navigate to game detail page
+          context,
           MaterialPageRoute(
             builder: (context) => GameDetailPage(game: widget.game),
           ),
         );
-      }, // Navigate to game detail page when tapped
+      },
       child: Card(
         elevation: 10,
         clipBehavior: Clip.antiAlias,
@@ -87,7 +87,7 @@ class _GameItemState extends State<GameItem> {
                 iconSize: 30,
                 highlightColor: Colors.amber[200],
               ),
-            )
+            ),
           ],
         ),
       ),

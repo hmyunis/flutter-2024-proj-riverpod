@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:video_game_catalogue_app/presentation/models/game.dart';
-import 'package:video_game_catalogue_app/presentation/widgets/games_list.dart';
+import '../models/game.dart';
+import '../widgets/comment_section.dart';
 
 class GameDetailPage extends StatefulWidget {
   const GameDetailPage({super.key, required this.game});
@@ -11,6 +11,14 @@ class GameDetailPage extends StatefulWidget {
 }
 
 class _GameDetailPageState extends State<GameDetailPage> {
+  final TextEditingController _commentController = TextEditingController();
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     int currentRating = 4;
@@ -138,7 +146,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "4.0",
                         style: TextStyle(
                           fontSize: 40,
@@ -161,7 +169,85 @@ class _GameDetailPageState extends State<GameDetailPage> {
               const SizedBox(
                 height: 30,
               ),
-              // TODO: List of reviews
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.blueGrey[200],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                height: 50,
+                width: double.maxFinite,
+                child: Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: Icon(
+                        Icons.person,
+                        size: 40,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: TextField(
+                        controller: _commentController,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Write a comment...',
+                          hintStyle: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: IconButton(
+                        onPressed: () {
+                          if (_commentController.text.isNotEmpty) {
+                            // send comment to server
+                            _commentController.clear();
+                            // refresh comment section to show new comments
+                          } else {
+                            // show error message
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.send,
+                          size: 30,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'Comments',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w200,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              CommentSection(game: widget.game),
             ],
           ),
         ));

@@ -1,6 +1,6 @@
-import "package:flutter/material.dart";
-
-import "../widgets/profile_pic_picker.dart";
+import 'package:flutter/material.dart';
+import '../data/avatars.dart';
+import '../widgets/avatar_picker_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,8 +10,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final _textController = TextEditingController();
-  final _emailController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  int avatarIndex =
+      0; //globally set/stored later, so that it doesn't reset on every build
+
   @override
   void initState() {
     super.initState();
@@ -28,153 +31,147 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    var _profilePic = Image.asset('assets/images/apex.jpg');
-
-    return Container(
-      decoration: BoxDecoration(
+    return SingleChildScrollView(
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         color: Colors.blueGrey[900],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: EdgeInsets.all(20),
-      padding: EdgeInsets.all(20),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onLongPress: () {
-              showDialog(
-                context: context,
-                builder: (context) => const ProfilePicPicker(),
-              ).then((pickedImage) {
-                // do something with the picked image
-              });
-            },
-            onTap: () {
-              // pop if snackbar is already showing
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  duration: Duration(seconds: 2),
-                  elevation: 10,
-                  backgroundColor: Colors.grey[900],
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  content: Text('Press and hold to edit your avatar!'),
-                ),
-              );
-            },
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/apex.jpg'),
-                  radius: 50,
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Meowsalot',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Column(
+        elevation: 10,
+        margin: const EdgeInsets.all(20),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
+              Stack(
                 children: [
-                  Text(
-                    "Join date: ",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w200,
-                    ),
+                  CircleAvatar(
+                    backgroundImage: AssetImage(avatars[avatarIndex]),
+                    radius: 50,
                   ),
-                  Text(
-                    "2023-03-08",
-                    style: TextStyle(color: Colors.white),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const AvatarPickerDialog(),
+                        ).then((value) {
+                          setState(() {
+                            if (value == null) {
+                              avatarIndex = 0;
+                            } else {
+                              avatarIndex = value;
+                            }
+                          });
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              TextField(
-                controller: this._textController,
+              const Text(
+                'Meowsalot',
                 style: TextStyle(
-                  color: Colors.grey,
-                ),
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(
-                    Icons.person,
-                  ),
-                  prefixIconColor: Colors.blue[700],
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
-              TextField(
-                controller: this._emailController,
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(
-                    Icons.email,
-                  ),
-                  prefixIconColor: Colors.blue[700],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
+              Column(
                 children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Log out'),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.red[700]),
+                  const Row(
+                    children: [
+                      Text(
+                        "Join date: ",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                      Text(
+                        "2023-03-08",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: _textController,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                    ),
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      labelStyle: const TextStyle(color: Colors.grey),
+                      prefixIcon: const Icon(
+                        Icons.person,
+                      ),
+                      prefixIconColor: Colors.blue[700],
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Update'),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.blue[700]),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: _emailController,
+                    style: const TextStyle(
+                      color: Colors.grey,
                     ),
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: const TextStyle(color: Colors.grey),
+                      prefixIcon: const Icon(
+                        Icons.email,
+                      ),
+                      prefixIconColor: Colors.blue[700],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red[700]),
+                        ),
+                        child: const Text('Log out'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.blue[700]),
+                        ),
+                        child: const Text('Update'),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

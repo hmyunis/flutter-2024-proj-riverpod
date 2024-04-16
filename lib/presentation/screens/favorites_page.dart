@@ -1,99 +1,101 @@
 import 'package:flutter/material.dart';
+import 'package:video_game_catalogue_app/presentation/data/favorites.dart';
+import 'package:video_game_catalogue_app/presentation/models/game.dart';
+import 'package:video_game_catalogue_app/presentation/widgets/favorite_item.dart';
 
-class FavoritesPage extends StatelessWidget {
-  const FavoritesPage({super.key});
+class FavoritesPage extends StatefulWidget {
+  FavoritesPage({super.key});
+
+  @override
+  State<FavoritesPage> createState() => _FavoritesPageState();
+}
+
+class _FavoritesPageState extends State<FavoritesPage> {
+  void removeFavorite(Game game) {
+    setState(() {
+      favorites.remove(game);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '${game.title} has been removed from your favorites.',
+                  overflow: TextOverflow.visible,
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    favorites.add(game);
+                  });
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                ),
+                child: const Text('UNDO'),
+              )
+            ],
+          ),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            title: Text('Apex Legends',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                )),
-            tileColor: Colors.blueGrey,
-            subtitle: Text('Description of item 1'),
-            leading: Image.asset("assets/images/apex.jpg"),
+        Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Colors.blueGrey, Colors.grey],
+            ),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              )
+            ],
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            title: Text('Tekken 8',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                )),
-            tileColor: Colors.blueGrey,
-            subtitle: Text('Description of item 1'),
-            leading: Image.asset("assets/images/tekken-8.jpg"),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            title: Text('Zelda',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                )),
-            tileColor: Colors.blueGrey,
-            subtitle: Text('Description of item 2'),
-            leading: Image.asset("assets/images/zelda.jpg"),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            title: Text('Valorant',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                )),
-            tileColor: Colors.blueGrey,
-            subtitle: Text('Description of item 3'),
-            leading: Image.asset("assets/images/valorant.jpg"),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            title: Text('Cyberpunk',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                )),
-            tileColor: Colors.blueGrey,
-            subtitle: Text('Description of item 2'),
-            leading: Image.asset("assets/images/cyberpunk.jpg"),
-          ),
-        ),
-        Dismissible(
-          key: UniqueKey(),
-          onDismissed: (direction) => print('Dismissed'),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: ListTile(
-              title: Text('Minecraft',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
-              tileColor: Colors.blueGrey,
-              subtitle: Text('Description of item 3'),
-              leading: Image.asset("assets/images/minecraft.jpg"),
+          margin: const EdgeInsets.all(8.0),
+          height: 100,
+          child: Center(
+            child: Text(
+              "F A V O R I T E S       🎮",
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.blue[900],
+              ),
             ),
           ),
+        ),
+        Expanded(
+          child: ListView.separated(
+              itemBuilder: ((context, index) => Dismissible(
+                    key: Key(favorites[index].title),
+                    onDismissed: (direction) =>
+                        removeFavorite(favorites[index]),
+                    background: Container(
+                      color: Colors.red,
+                      padding: const EdgeInsets.only(right: 20),
+                      alignment: Alignment.centerRight,
+                      child: const Icon(Icons.delete,
+                          color: Colors.white, size: 30),
+                    ),
+                    direction: DismissDirection.endToStart,
+                    child: FavoriteItem(game: favorites[index]),
+                  )),
+              separatorBuilder: ((context, index) => const SizedBox(height: 5)),
+              itemCount: favorites.length),
         ),
       ],
     );

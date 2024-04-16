@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'presentation/screens/about_page.dart';
 import 'presentation/screens/browse_page.dart';
 import 'presentation/screens/favorites_page.dart';
 import 'presentation/screens/profile_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   final List _pages = [
     BrowsePage(),
     FavoritesPage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -34,9 +35,14 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         useMaterial3: false,
       ),
+      routes: {
+        '/favorites': (context) => FavoritesPage(),
+        '/profile': (context) => const ProfilePage(),
+        '/about': (context) => const AboutPage(),
+      },
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -50,16 +56,15 @@ class _MyAppState extends State<MyApp> {
           ),
           actions: [
             IconButton(
+              icon: const Icon(Icons.info),
               onPressed: () {
-                // modal bottom sheet
+                print("Info icon pressed!!!!!!!!");
               },
-              icon: Icon(Icons.info),
             )
           ],
           centerTitle: true,
           elevation: 10,
           backgroundColor: Colors.blueGrey[900],
-          // backgroundColor: Theme.of(context).primaryColor,
           shadowColor: Colors.black,
         ),
         drawer: Drawer(
@@ -70,43 +75,38 @@ class _MyAppState extends State<MyApp> {
                 child: Icon(Icons.gamepad_rounded,
                     size: 80,
                     color: Colors.blue[700],
-                    shadows: [
+                    shadows: const [
                       Shadow(
                           color: Colors.black,
                           blurRadius: 5,
                           offset: Offset(0, 5))
                     ]),
               ),
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.home),
                 title: Text("B R O W S E"),
               ),
-              Divider(),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text("P R O F I L E"),
-              ),
-              ListTile(
+              const Divider(),
+              const ListTile(
                 leading: Icon(Icons.star),
                 title: Text("F A V O R I T E S"),
               ),
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.settings),
                 title: Text("S E T T I N G S"),
               ),
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.logout),
                 title: Text("L O G O U T"),
               ),
-              Spacer(),
-              ListTile(
+              const Spacer(),
+              const ListTile(
                 leading: Icon(Icons.info),
                 title: Text("A B O U T"),
               ),
             ],
           ),
         ),
-        // bottom navigation bar
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _navigateBottomBar,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_game_catalogue_app/presentation/data/accounts.dart';
 import 'package:video_game_catalogue_app/presentation/widgets/administrators.dart';
 import '../data/avatars.dart';
 import '../widgets/avatar_picker_dialog.dart';
@@ -176,7 +177,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          const AdminContainer(),
+          (accounts[1].userType == "Owner" || accounts[1].userType == "Admin")
+              ? const AdminContainer()
+              : const SizedBox(),
         ],
       ),
     );

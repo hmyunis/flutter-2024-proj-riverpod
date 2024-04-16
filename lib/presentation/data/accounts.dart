@@ -4,5 +4,5 @@ List<Account> accounts = const [
   Account(userName: "Estifanos", userType: "Admin"),
   Account(userName: "Hamdi", userType: "User"),
   Account(userName: "Bela", userType: "Owner"),
-  Account(userName: "Bela", userType: "Admin"),
+  Account(userName: "Moti", userType: "Admin"),
 ];

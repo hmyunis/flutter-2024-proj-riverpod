@@ -25,8 +25,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   final List _pages = [
-    BrowsePage(),
-    FavoritesPage(),
+    const BrowsePage(),
+    const FavoritesPage(),
     const ProfilePage(),
   ];
 
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: false,
       ),
       routes: {
-        '/favorites': (context) => FavoritesPage(),
+        '/favorites': (context) => const FavoritesPage(),
         '/profile': (context) => const ProfilePage(),
         '/about': (context) => const AboutPage(),
       },

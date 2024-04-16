@@ -4,7 +4,7 @@ import 'package:video_game_catalogue_app/presentation/models/game.dart';
 import 'package:video_game_catalogue_app/presentation/widgets/favorite_item.dart';
 
 class FavoritesPage extends StatefulWidget {
-  FavoritesPage({super.key});
+  const FavoritesPage({super.key});
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();

@@ -3,7 +3,7 @@ import 'package:video_game_catalogue_app/presentation/data/games.dart';
 import '../widgets/games_list.dart';
 
 class BrowsePage extends StatelessWidget {
-  BrowsePage({super.key});
+  const BrowsePage({super.key});
 
   
   @override

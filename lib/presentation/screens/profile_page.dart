@@ -177,7 +177,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          (accounts[1].userType == "Owner" || accounts[1].userType == "Admin")
+          (accounts[0].userType == "Owner" || accounts[0].userType == "Admin")
               ? const AdminContainer()
               : const SizedBox(),
         ],

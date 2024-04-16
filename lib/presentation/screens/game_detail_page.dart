@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:video_game_catalogue_app/presentation/data/accounts.dart';
+import 'package:video_game_catalogue_app/presentation/widgets/edit_delete.dart';
 import '../models/game.dart';
 import '../widgets/comment_section.dart';
 
@@ -125,52 +127,12 @@ class _GameDetailPageState extends State<GameDetailPage> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: const Text('Edit game detail'),
-                      ),
+              (accounts[0].userType == "Owner" ||
+                      accounts[0].userType == "Admin")
+                  ? const EditDelete()
+                  : const SizedBox(
+                      height: 30,
                     ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: const Text('Delete game'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
               Column(
                 children: [
                   const SizedBox(

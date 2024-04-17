@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
     const BrowsePage(),
     const FavoritesPage(),
     const ProfilePage(),
+    
   ];
 
   @override
@@ -44,9 +45,9 @@ class _MyAppState extends State<MyApp> {
 
         ),
         '/profile': (context) => const ProfilePage(),
-        '/about': (context) => const AboutPage(),
+        '/about': (context) =>  AboutPage(),
         '/BrowsePage': (context) => const BrowsePage(),
-        '/AboutPage': (context) => const AboutPage(),
+        '/AboutPage': (context) =>  AboutPage(),
       },
       home: Scaffold(
         appBar: AppBar(

@@ -35,4 +35,4 @@ In essence, Video Game Catalogue offers a streamlined experience for users to ma
 | Member 1   | BELEIR MESSAY GETACHEW | UGR/8657/14    | beleir101           |
 | Member 2   | ESTIFANOS TAYE TAMIRAT | UGR/7285/14    | EstifanosTaye320    |
 | Member 3   | HAMDI MOHAMMED YUNIS   | UGR/8929/14    | hmyunis             |
-| Member 4   | MOTI LEGGESE DABESA    | UGR/5389/14    | motilegge2          |
+| Member 4   | MOTI LEGGESE DABESA    | UGR/5389/14    | ldmoti              |

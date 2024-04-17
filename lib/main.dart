@@ -3,6 +3,7 @@ import 'presentation/screens/about_page.dart';
 import 'presentation/screens/browse_page.dart';
 import 'presentation/screens/favorites_page.dart';
 import 'presentation/screens/profile_page.dart';
+import 'package:video_game_catalogue_app/presentation/data/accounts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -147,6 +148,12 @@ class _MyAppState extends State<MyApp> {
             ),
           ],
         ),
+        floatingActionButton: (accounts[0].userType == "Owner" ||
+                    accounts[0].userType == "Admin") &&
+                (_selectedIndex == 0)
+            ? FloatingActionButton(
+                onPressed: () {}, child: const Icon(Icons.add))
+            : null,
         backgroundColor: Colors.blueGrey[700],
         body: _pages[_selectedIndex],
       ),

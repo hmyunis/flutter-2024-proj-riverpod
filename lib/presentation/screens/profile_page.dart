@@ -5,6 +5,131 @@ import 'package:video_game_catalogue_app/presentation/widgets/administrators.dar
 import '../data/avatars.dart';
 import '../widgets/avatar_picker_dialog.dart';
 
+class EditDelete extends StatelessWidget {
+  const EditDelete({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); 
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.blueGrey[800], 
+                      builder: (context) => const EditGameBottomSheet(),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, 
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: const Text('Edit game detail'),
+                ),
+              ),
+              const SizedBox(height: 7),
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red[700], 
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: const Text('Delete game'),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 15),
+      ],
+    );
+  }
+}
+
+class EditGameBottomSheet extends StatelessWidget {
+  const EditGameBottomSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[800],
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      child: Column(
+        children: [
+          const Text('Edit Game Details', 
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+          const SizedBox(height: 20),
+          const TextField(
+            decoration: InputDecoration(
+              labelText: 'Title',
+              labelStyle: TextStyle(color: Colors.white),
+            ),
+            style: TextStyle(color: Colors.white), 
+          ),
+          const TextField(
+            decoration: InputDecoration(
+              labelText: 'Image URL',
+              labelStyle: TextStyle(color: Colors.white),
+            ),
+            style: TextStyle(color: Colors.white),
+          ),
+          const TextField(
+            decoration: InputDecoration(
+              labelText: 'Genre',
+              labelStyle: TextStyle(color: Colors.white),
+            ),
+            style: TextStyle(color: Colors.white),
+          ),
+          const TextField(
+            decoration: InputDecoration(
+              labelText: 'Description',
+              labelStyle: TextStyle(color: Colors.white),
+            ),
+            maxLines: 3,
+            style: TextStyle(color: Colors.white),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+            ),
+            child: const Text('Save Changes', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -145,7 +270,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              // Show bottom sheet for editing profile
+                              // Close any open bottom sheets before showing a new one
+                              Navigator.pop(context); 
                               showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.blueGrey[800],
@@ -169,7 +295,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          (accounts[0].userType == "Owner" || accounts[0].userType == "Admin")
+          (accounts[0].userType == "Owner" ||
+                  accounts[0].userType == "Admin")
               ? const AdminContainer()
               : const SizedBox(),
         ],
@@ -177,11 +304,13 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
 class EditProfileBottomSheet extends StatefulWidget {
   final String initialUsername;
   final String initialEmail;
 
-  const EditProfileBottomSheet({super.key, 
+  const EditProfileBottomSheet({
+    super.key,
     required this.initialUsername,
     required this.initialEmail,
   });
@@ -221,7 +350,8 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
       ),
       child: Column(
         children: [
-          const Text('Edit Profile', style: TextStyle(fontSize: 20, color: Colors.white)),
+          const Text('Edit Profile',
+              style: TextStyle(fontSize: 20, color: Colors.white)),
           const SizedBox(height: 20),
           TextField(
             controller: _usernameController,
@@ -242,11 +372,13 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              // Save the edited profile details
+              // Save the edited profile details (implement your state management here)
               String updatedUsername = _usernameController.text;
               String updatedEmail = _emailController.text;
-             
-              Navigator.pop(context);
+
+              // ... Update your state management or backend ...
+
+              Navigator.pop(context); 
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,

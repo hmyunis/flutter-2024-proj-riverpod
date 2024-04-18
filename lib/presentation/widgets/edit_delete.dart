@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../models/game.dart';
 
 class EditDelete extends StatelessWidget {
-  const EditDelete({super.key});
+  const EditDelete({super.key, required this.game});
+  final Game game;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,11 @@ class EditDelete extends StatelessWidget {
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
-                      backgroundColor: Colors.blueGrey[800], // Set background color
-                      builder: (context) => const EditGameBottomSheet(),
+                      isScrollControlled: true,
+                      constraints: const BoxConstraints(maxHeight: 600),
+                      backgroundColor:
+                          Colors.blueGrey[800], // Set background color
+                      builder: (context) => EditGameBottomSheet(game: game),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -58,11 +63,38 @@ class EditDelete extends StatelessWidget {
   }
 }
 
+class EditGameBottomSheet extends StatefulWidget {
+  const EditGameBottomSheet({super.key, required this.game});
+  final Game game;
 
-class EditGameBottomSheet extends StatelessWidget {
-  const EditGameBottomSheet({super.key});
+  @override
+  State<EditGameBottomSheet> createState() => _EditGameBottomSheetState();
+}
 
-  
+class _EditGameBottomSheetState extends State<EditGameBottomSheet> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _imageUrlController = TextEditingController();
+  final TextEditingController _genreController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController.text = widget.game.title;
+    _imageUrlController.text = widget.game.imageUrl;
+    _genreController.text = widget.game.genre;
+    _descriptionController.text = widget.game.description;
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _imageUrlController.dispose();
+    _genreController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,40 +106,45 @@ class EditGameBottomSheet extends StatelessWidget {
           topRight: Radius.circular(16.0),
         ),
       ),
-      child: Column(
+      child: ListView(
         children: [
-          const Text('Edit Game Details', 
+          const Text(
+            'Edit Game Details',
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           const SizedBox(height: 20),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _titleController,
+            decoration: const InputDecoration(
               labelText: 'Title',
               labelStyle: TextStyle(color: Colors.white),
             ),
-            style: TextStyle(color: Colors.white), 
+            style: const TextStyle(color: Colors.grey),
           ),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _imageUrlController,
+            decoration: const InputDecoration(
               labelText: 'Image URL',
               labelStyle: TextStyle(color: Colors.white),
             ),
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.grey),
           ),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _genreController,
+            decoration: const InputDecoration(
               labelText: 'Genre',
               labelStyle: TextStyle(color: Colors.white),
             ),
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.grey),
           ),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _descriptionController,
+            decoration: const InputDecoration(
               labelText: 'Description',
               labelStyle: TextStyle(color: Colors.white),
             ),
             maxLines: 3,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -117,7 +154,8 @@ class EditGameBottomSheet extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
             ),
-            child: const Text('Save Changes', style: TextStyle(color: Colors.white)),
+            child: const Text('Save Changes',
+                style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

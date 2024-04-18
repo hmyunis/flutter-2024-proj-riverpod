@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:video_game_catalogue_app/presentation/data/accounts.dart';
-import 'package:video_game_catalogue_app/presentation/widgets/administrators.dart';
-
+import '../data/accounts.dart';
+import '../widgets/administrators.dart';
 import '../data/avatars.dart';
 import '../widgets/avatar_picker_dialog.dart';
 
@@ -22,16 +21,16 @@ class EditDelete extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); 
+                    Navigator.pop(context);
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
-                      backgroundColor: Colors.blueGrey[800], 
+                      backgroundColor: Colors.blueGrey[800],
                       builder: (context) => const EditGameBottomSheet(),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, 
+                    backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -47,7 +46,7 @@ class EditDelete extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red[700], 
+                    backgroundColor: Colors.red[700],
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -81,7 +80,8 @@ class EditGameBottomSheet extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Text('Edit Game Details', 
+          const Text(
+            'Edit Game Details',
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           const SizedBox(height: 20),
@@ -90,7 +90,7 @@ class EditGameBottomSheet extends StatelessWidget {
               labelText: 'Title',
               labelStyle: TextStyle(color: Colors.white),
             ),
-            style: TextStyle(color: Colors.white), 
+            style: TextStyle(color: Colors.white),
           ),
           const TextField(
             decoration: InputDecoration(
@@ -122,7 +122,8 @@ class EditGameBottomSheet extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
             ),
-            child: const Text('Save Changes', style: TextStyle(color: Colors.white)),
+            child: const Text('Save Changes',
+                style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -237,6 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(height: 10),
                       TextField(
                         controller: _textController,
+                        enabled: false,
                         style: const TextStyle(color: Colors.grey),
                         decoration: InputDecoration(
                           labelText: 'Username',
@@ -248,6 +250,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(height: 10),
                       TextField(
                         controller: _emailController,
+                        enabled: false,
                         style: const TextStyle(color: Colors.grey),
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -263,27 +266,31 @@ class _ProfilePageState extends State<ProfilePage> {
                           ElevatedButton(
                             onPressed: () {},
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.red[700]),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.red[700]),
                             ),
                             child: const Text('Log out'),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               // Close any open bottom sheets before showing a new one
-                              
+
                               showModalBottomSheet(
                                 context: context,
+                                isScrollControlled: true,
+                                constraints:
+                                    const BoxConstraints(maxHeight: 550),
                                 backgroundColor: Colors.blueGrey[800],
-                                builder: (BuildContext context) => EditProfileBottomSheet(
+                                builder: (BuildContext context) =>
+                                    EditProfileBottomSheet(
                                   initialUsername: _textController.text,
                                   initialEmail: _emailController.text,
                                 ),
                               );
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.blue[700]),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blue[700]),
                             ),
                             child: const Text('Update'),
                           ),
@@ -295,8 +302,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          (accounts[0].userType == "Owner" ||
-                  accounts[0].userType == "Admin")
+          (accounts[0].userType == "Owner" || accounts[0].userType == "Admin")
               ? const AdminContainer()
               : const SizedBox(),
         ],
@@ -378,12 +384,13 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
 
               // ... Update your state management or backend ...
 
-              Navigator.pop(context); 
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
             ),
-            child: const Text('Save Changes', style: TextStyle(color: Colors.white)),
+            child: const Text('Save Changes',
+                style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

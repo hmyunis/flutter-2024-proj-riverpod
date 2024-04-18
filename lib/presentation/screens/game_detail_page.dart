@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:video_game_catalogue_app/presentation/data/accounts.dart';
-import 'package:video_game_catalogue_app/presentation/widgets/edit_delete.dart';
+import '../data/accounts.dart';
+import '../widgets/edit_delete.dart';
 import '../models/game.dart';
 import '../widgets/comment_section.dart';
 
@@ -129,7 +129,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
               ),
               (accounts[0].userType == "Owner" ||
                       accounts[0].userType == "Admin")
-                  ? const EditDelete()
+                  ? EditDelete(game: widget.game)
                   : const SizedBox(
                       height: 30,
                     ),

@@ -3,7 +3,7 @@ import 'presentation/screens/about_page.dart';
 import 'presentation/screens/browse_page.dart';
 import 'presentation/screens/favorites_page.dart';
 import 'presentation/screens/profile_page.dart';
-import 'package:video_game_catalogue_app/presentation/data/accounts.dart';
+import 'presentation/data/accounts.dart';
 
 void main() {
   runApp(const MyApp());

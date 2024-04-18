@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
                   child: Container(
                   width: 300.0,
                   decoration: const BoxDecoration(
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 52, 51, 56),
                     borderRadius: BorderRadius.all(Radius.circular(10))
                 
                   ),
@@ -41,14 +41,13 @@ class LoginPage extends StatelessWidget {
                   child: Column(children: [
                     const Row(children: [Text("Login",
                     style: TextStyle(fontSize: 30, color: Color.fromARGB(255, 192, 182, 182), fontWeight: FontWeight.bold,)),],),
-                    const SizedBox(height: 10,),
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.blueGrey,
-                    ),
-                    child:  Column(children: [Container(
-                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromARGB(255, 211, 202, 202)))
+                    const SizedBox(height: 20,),
+                    Column(children: [Container(
+                      height: 50,
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromARGB(255, 211, 202, 202))),
+                      color: Color.fromARGB(255, 114, 113, 109),
+                      borderRadius: BorderRadius.all(Radius.circular(10))
                       
                       ),
                       child: const TextField(
@@ -56,13 +55,17 @@ class LoginPage extends StatelessWidget {
                           hintText: "User Name",
                           hintStyle: TextStyle(color: Colors.grey),
                           border: InputBorder.none,
-                
+                          
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 30,),
                     Container(
-                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromARGB(255, 211, 202, 202)))
+                      height: 50,
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromARGB(255, 211, 202, 202))),
+                      color: Color.fromARGB(255, 114, 113, 109),
+                      borderRadius: BorderRadius.all(Radius.circular(10))
                       
                       ),
                       child: const TextField(
@@ -70,13 +73,13 @@ class LoginPage extends StatelessWidget {
                           hintText: "Password",
                           hintStyle: TextStyle(color: Colors.grey),
                           border: InputBorder.none,
-                
+                                    
                         ),
                       ),
                     ),
                     const SizedBox(height: 40),
                      Center(
-                
+                                    
                       child:Container(
                         width: 200,
                         child: ElevatedButton(onPressed: ()=>{},
@@ -92,8 +95,6 @@ class LoginPage extends StatelessWidget {
                     
                       ),
                     ],),
-                    
-                  ),
                   const SizedBox(height: 20,),
                    const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,18 +108,34 @@ class LoginPage extends StatelessWidget {
                   ),
                   ),),
               ),
-              /*
-              Positioned(
-                top: 10,
-                left: 70,
+              
+              Center(
+
                 child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(90, 132, 0, 255),
-                    shape: BoxShape.circle
-                  )
-                  */
+                  padding: const EdgeInsets.fromLTRB(0, 10, 250, 0),
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(90, 132, 0, 255),
+                      shape: BoxShape.circle
+                    )),
+                ),
+              ),
+              Center(
+
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(260, 330, 0, 0),
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(90, 132, 0, 255),
+                      shape: BoxShape.circle
+                    )),
+                ),
+              )
+                
           ]),
           const Expanded(
             child: SizedBox(height: 10,))

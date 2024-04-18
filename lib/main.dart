@@ -18,6 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
+  bool? _isNightMode;
 
   void _navigateBottomBar(int index) {
     setState(() {
@@ -29,7 +30,6 @@ class _MyAppState extends State<MyApp> {
     const BrowsePage(),
     const FavoritesPage(),
     const ProfilePage(),
-    
   ];
 
   @override
@@ -41,13 +41,10 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: false,
       ),
       routes: {
-        '/FavoritesPage': (context) => const FavoritesPage(
-
-        ),
+        '/browse': (context) => const BrowsePage(),
+        '/favorites': (context) => const FavoritesPage(),
         '/profile': (context) => const ProfilePage(),
-        '/about': (context) =>  AboutPage(),
-        '/BrowsePage': (context) => const BrowsePage(),
-        '/AboutPage': (context) =>  AboutPage(),
+        '/about': (context) => const AboutPage(),
       },
       home: Scaffold(
         appBar: AppBar(
@@ -61,12 +58,14 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.info),
-              onPressed: () {
-                print("Info icon pressed!!!!!!!!");
-              },
-            )
+            Builder(builder: (context) {
+              return IconButton(
+                icon: const Icon(Icons.info),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/about');
+                },
+              );
+            })
           ],
           centerTitle: true,
           elevation: 10,
@@ -75,55 +74,65 @@ class _MyAppState extends State<MyApp> {
         ),
         drawer: Drawer(
           backgroundColor: Colors.blueGrey[500],
-          child: Column(
-            children: [
-              DrawerHeader(
-                child: Icon(Icons.gamepad_rounded,
-                    size: 80,
-                    color: Colors.blue[700],
-                    shadows: const [
-                      Shadow(
-                          color: Colors.black,
-                          blurRadius: 5,
-                          offset: Offset(0, 5))
-                    ]),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text("B R O W S E"),
-                onTap: () {
-                  Navigator.pushNamed(context, MaterialPageRoute(builder: (context_) => const BrowsePage()) as String);
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.star),
-                title: const Text("F A V O R I T E S"),
-                onTap: () {
-                  Navigator.pushNamed(context, MaterialPageRoute(builder: (context_) => const FavoritesPage()) as String);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text("S E T T I N G S"),
-                onTap: () {
-                  Navigator.pushNamed(context, "/profile");
-                },
-              ),
-              const ListTile(
-                leading: Icon(Icons.logout),
-                title: Text("L O G O U T"),
-              ),
-              const Spacer(),
-              ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text("A B O U T"),
-                onTap: () {
-                  Navigator.pushNamed(context, "/AboutPage");
-                },
-              ),
-            ],
-          ),
+          child: Builder(builder: (context) {
+            return Column(
+              children: [
+                DrawerHeader(
+                  child: Icon(Icons.gamepad_rounded,
+                      size: 80,
+                      color: Colors.blue[700],
+                      shadows: const [
+                        Shadow(
+                            color: Colors.black,
+                            blurRadius: 5,
+                            offset: Offset(0, 5))
+                      ]),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.fitbit_outlined),
+                  title: const Text("G A M E S"),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/browse');
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.dark_mode),
+                  title: const Text("N I G H T  M O D E"),
+                  trailing: Switch(
+                    value: _isNightMode ?? false,
+                    activeColor: Colors.blue[500],
+                    onChanged: (value) {
+                      // TODO: Implement night mode feature
+                      setState(() {
+                        _isNightMode = value;
+                      });
+                    },
+                  ),
+                  onTap: () {},
+                ),
+                // ListTile(
+                //   leading: const Icon(Icons.settings),
+                //   title: const Text("S E T T I N G S"),
+                //   onTap: () {
+                //     Navigator.pushNamed(context, "/profile");
+                //   },
+                // ),
+                const ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text("L O G  O U T"),
+                ),
+                const Spacer(),
+                ListTile(
+                  leading: const Icon(Icons.info),
+                  title: const Text("A B O U T"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/about");
+                  },
+                ),
+              ],
+            );
+          }),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
@@ -161,5 +170,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-

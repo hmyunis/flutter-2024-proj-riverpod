@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -15,27 +18,110 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity,
         color: const Color.fromARGB(255, 26, 35, 51),
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
           const SizedBox(height: 100,),
-          Expanded(child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: BorderRadius.all(Radius.circular(60))
-
-            ),
-            child:  Padding(padding: const EdgeInsets.all(20) ,
-            child: Column(children: [
-              const SizedBox(height: 60,),
+          Stack(
+            children: [
               Container(
-              decoration: const BoxDecoration(
-                boxShadow: [BoxShadow(color: Color.fromARGB(255, 145, 131, 131), blurRadius: 20, offset: Offset(0, 10))]
+                margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                child: Center(
+                
+                  child: Container(
+                  width: 300.0,
+                  decoration: const BoxDecoration(
+                    color: Colors.blueGrey,
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                
+                  ),
+                  child:  Padding(padding: const EdgeInsets.all(20) ,
+                  child: Column(children: [
+                    const Row(children: [Text("Login",
+                    style: TextStyle(fontSize: 30, color: Color.fromARGB(255, 192, 182, 182), fontWeight: FontWeight.bold,)),],),
+                    const SizedBox(height: 10,),
+                    Container(
+                      padding: const EdgeInsets.all(10.0),
+                    decoration: const BoxDecoration(
+                      color: Colors.blueGrey,
+                    ),
+                    child:  Column(children: [Container(
+                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromARGB(255, 211, 202, 202)))
+                      
+                      ),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          hintText: "User Name",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: InputBorder.none,
+                
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10,),
+                    Container(
+                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color.fromARGB(255, 211, 202, 202)))
+                      
+                      ),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          hintText: "Password",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: InputBorder.none,
+                
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                     Center(
+                
+                      child:Container(
+                        width: 200,
+                        child: ElevatedButton(onPressed: ()=>{},
+                        
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:const Color.fromARGB(255, 40, 30, 82),
+                          shape: const StadiumBorder(),
+                        
+                        ),
+                        child: const Text("Submit",
+                        style: TextStyle(color: Colors.white),)),
+                      ),
+                    
+                      ),
+                    ],),
+                    
+                  ),
+                  const SizedBox(height: 20,),
+                   const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Register",
+                      style: TextStyle(color:Color.fromARGB(255, 192, 182, 182), fontWeight: FontWeight.w100),),
+                       Text("Forget Password", style: TextStyle(color: Color.fromARGB(255, 192, 182, 182), fontWeight: FontWeight.w100),),
+                    ],
+                  )
+                  ],),
+                  ),
+                  ),),
               ),
-            )],),
-            ),
-            ))
+              /*
+              Positioned(
+                top: 10,
+                left: 70,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(90, 132, 0, 255),
+                    shape: BoxShape.circle
+                  )
+                  */
+          ]),
+          const Expanded(
+            child: SizedBox(height: 10,))
         ],),
       )
     );

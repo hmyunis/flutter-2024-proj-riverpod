@@ -271,11 +271,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           ElevatedButton(
                             onPressed: () {
                               // Close any open bottom sheets before showing a new one
-                              Navigator.pop(context); 
+                              
                               showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.blueGrey[800],
-                                builder: (context) => EditProfileBottomSheet(
+                                builder: (BuildContext context) => EditProfileBottomSheet(
                                   initialUsername: _textController.text,
                                   initialEmail: _emailController.text,
                                 ),

@@ -139,20 +139,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   int avatarIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _textController.text = "Meowsalot";
-    _emailController.text = "meowsalot@gmail.com";
+    _usernameController.text = "Guest";
+    _emailController.text = "guest@gmail.com";
   }
 
   @override
   void dispose() {
-    _textController.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
     super.dispose();
   }
@@ -177,9 +177,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Stack(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(avatars[avatarIndex]),
-                        radius: 50,
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.blueGrey,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage(avatars[avatarIndex]),
+                          radius: 50,
+                        ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -209,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    'Meowsalot',
+                    'Guest',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -237,7 +246,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        controller: _textController,
+                        controller: _usernameController,
                         enabled: false,
                         style: const TextStyle(color: Colors.grey),
                         decoration: InputDecoration(
@@ -264,7 +273,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         alignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/login');
+                            },
                             style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.red[700]),
@@ -283,7 +294,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 backgroundColor: Colors.blueGrey[800],
                                 builder: (BuildContext context) =>
                                     EditProfileBottomSheet(
-                                  initialUsername: _textController.text,
+                                  initialUsername: _usernameController.text,
                                   initialEmail: _emailController.text,
                                 ),
                               );

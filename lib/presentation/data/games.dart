@@ -1,100 +1,116 @@
-import 'package:video_game_catalogue_app/presentation/models/game.dart';
+import '../models/game.dart';
 
 final List<Game> games = [
   Game(
-    description: "Waste your life!",
+    description:
+        "Immerse yourself in a blocky, pixelated world and build anything you can imagine in this sandbox game.",
     title: "Minecraft",
     genre: "Strategy",
-    imageUrl: 'assets/images/minecraft.jpg',
+    imageUrl: 'assets/images/games/minecraft.jpg',
   ),
   Game(
-    description: "Funky as it can get!",
+    description:
+        "Embark on a futuristic adventure in a neon-lit metropolis filled with danger and intrigue.",
     title: "Cyberpunk",
     genre: "Action",
-    imageUrl: 'assets/images/cyberpunk.jpg',
+    imageUrl: 'assets/images/games/cyberpunk.jpg',
   ),
   Game(
-    description: "Smash your enemies to pieces!",
+    description:
+        "Enter the arena and engage in intense hand-to-hand combat against skilled opponents.",
     title: "Tekken 8",
     genre: "Fighting",
-    imageUrl: 'assets/images/tekken-8.jpg',
+    imageUrl: 'assets/images/games/tekken-8.jpg',
   ),
   Game(
-    description: "Edgy plot of your life!",
+    description:
+        "Join a team of agents and engage in tactical battles using unique abilities and weapons.",
     title: "Valorant",
     genre: "RPG",
-    imageUrl: 'assets/images/valorant.jpg',
+    imageUrl: 'assets/images/games/valorant.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Embark on a quest to rescue Princess Zelda and defeat the evil Ganon in this classic adventure game.",
     title: "Zelda",
     genre: "Action",
-    imageUrl: 'assets/images/zelda.jpg',
+    imageUrl: 'assets/images/games/zelda.jpg',
   ),
   Game(
-    description: "Kill your mobile battery in seconds!",
+    description:
+        "Form a squad of legendary warriors and compete for fame and fortune in a battle royale.",
     title: "Apex Legends",
     genre: "RPG",
-    imageUrl: 'assets/images/apex.jpg',
+    imageUrl: 'assets/images/games/apex.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Test your fighting skills in brutal one-on-one combat against a variety of opponents.",
     title: "Mortal Kombat",
     genre: "Action",
-    imageUrl: 'assets/images/mortal-kombat.jpg',
+    imageUrl: 'assets/images/games/mortal-kombat.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Explore a dark and sinister world filled with terrifying creatures and challenging bosses.",
     title: "Bloodborne",
     genre: "Action",
-    imageUrl: 'assets/images/bloodborne.jpg',
+    imageUrl: 'assets/images/games/bloodborne.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Fight against alien invaders and defend humanity's last city from annihilation.",
     title: "Destiny 2",
     genre: "Action",
-    imageUrl: 'assets/images/destiny-2.jpg',
+    imageUrl: 'assets/images/games/destiny-2.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Blast your way through hordes of demons and uncover the secrets of a Martian research facility.",
     title: "Doom",
     genre: "Action",
-    imageUrl: 'assets/images/doom.jpg',
+    imageUrl: 'assets/images/games/doom.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Build a flourishing fantasy city and lead your elves to prosperity in this strategy game.",
     title: "Elvenar",
     genre: "Action",
-    imageUrl: 'assets/images/elvenar.jpg',
+    imageUrl: 'assets/images/games/elvenar.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Experience the excitement of competitive football and lead your team to victory in this sports game.",
     title: "Fifa 16",
     genre: "Action",
-    imageUrl: 'assets/images/fifa-16.jpg',
+    imageUrl: 'assets/images/games/fifa-16.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Join the ranks of an elite firefighting team and battle infernos in this action-packed game.",
     title: "Fire Force",
     genre: "Action",
-    imageUrl: 'assets/images/fire-force.jpg',
+    imageUrl: 'assets/images/games/fire-force.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Step onto the volleyball court and spike your way to victory in this sports game.",
     title: "Haikyuu",
     genre: "Action",
-    imageUrl: 'assets/images/haikyu.jpg',
+    imageUrl: 'assets/images/games/haikyu.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Attend Hogwarts School of Witchcraft and Wizardry and master the magical arts in this adventure game.",
     title: "Harry Potter",
     genre: "Action",
-    imageUrl: 'assets/images/harry-potter.jpg',
+    imageUrl: 'assets/images/games/harry-potter.jpg',
   ),
   Game(
-    description: "Fight to the death!",
+    description:
+        "Become a hero and use your extraordinary powers to protect the innocent in this action-packed game.",
     title: "My Hero",
     genre: "Action",
-    imageUrl: 'assets/images/my-hero.jpg',
+    imageUrl: 'assets/images/games/my-hero.jpg',
   ),
 ];

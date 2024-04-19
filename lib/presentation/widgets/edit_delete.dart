@@ -23,13 +23,17 @@ class EditDelete extends StatelessWidget {
                       context: context,
                       isScrollControlled: true,
                       constraints: const BoxConstraints(maxHeight: 600),
-                      backgroundColor:
-                          Colors.blueGrey[800], // Set background color
+                      backgroundColor: Colors.blueGrey[800],
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(25),
+                        ),
+                      ),
                       builder: (context) => EditGameBottomSheet(game: game),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Button color
+                    backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),

@@ -14,10 +14,15 @@ class _AvatarPickerDialogState extends State<AvatarPickerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Select an Avatar'),
+      title: const Text(
+        'Select an Avatar',
+        style: TextStyle(
+          fontSize: 20.0,
+        ),
+      ),
       backgroundColor: Colors.blueGrey[300],
       content: SizedBox(
-        // height: 300,
+        height: 300,
         width: double.maxFinite,
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -35,12 +40,21 @@ class _AvatarPickerDialogState extends State<AvatarPickerDialog> {
                   Navigator.of(context).pop(_selectedAvatarIndex);
                 });
               },
-              child: CircleAvatar(
-                backgroundImage: AssetImage(avatars[index]),
-                radius: 30.0,
-                backgroundColor: _selectedAvatarIndex == index
-                    ? Colors.blue.withOpacity(0.5)
-                    : Colors.transparent,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.blueGrey,
+                    width: 2.0,
+                  ),
+                ),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage(avatars[index]),
+                  radius: 30.0,
+                  backgroundColor: _selectedAvatarIndex == index
+                      ? Colors.blue.withOpacity(0.5)
+                      : Colors.transparent,
+                ),
               ),
             );
           },
@@ -51,7 +65,12 @@ class _AvatarPickerDialogState extends State<AvatarPickerDialog> {
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog
           },
-          child: const Text('Cancel'),
+          child: const Text(
+            'Cancel',
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
         ),
       ],
     );

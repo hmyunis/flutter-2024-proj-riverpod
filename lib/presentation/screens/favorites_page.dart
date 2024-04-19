@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:video_game_catalogue_app/presentation/data/favorites.dart';
-import 'package:video_game_catalogue_app/presentation/models/game.dart';
-import 'package:video_game_catalogue_app/presentation/widgets/favorite_item.dart';
+import '../data/favorites.dart';
+import '../models/game.dart';
+import '../widgets/favorite_item.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -29,9 +29,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
               ),
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    favorites.add(game);
-                  });
+                  if (favorites.contains(game) == false) {
+                    setState(() {
+                      favorites.add(game);
+                    });
+                  }
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 },
                 style: TextButton.styleFrom(
@@ -68,13 +70,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
           margin: const EdgeInsets.all(8.0),
           height: 100,
-          child: Center(
-            child: Text(
-              "F A V O R I T E S       🎮",
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.blue[900],
-              ),
+          width: double.maxFinite,
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Text(
+            "F A V O R I T E S",
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.blue[900],
             ),
           ),
         ),

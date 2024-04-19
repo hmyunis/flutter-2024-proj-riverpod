@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:video_game_catalogue_app/presentation/screens/available_games.dart';
+import 'presentation/widgets/new_game_modal.dart';
+import 'presentation/screens/available_games.dart';
+import 'presentation/screens/login_page.dart';
+import 'presentation/screens/registration_page.dart';
 import 'presentation/screens/about_page.dart';
 import 'presentation/screens/browse_page.dart';
 import 'presentation/screens/favorites_page.dart';
@@ -41,7 +44,10 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         useMaterial3: false,
       ),
+      initialRoute: '/login',
       routes: {
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const RegistrationPage(),
         '/browse': (context) => const BrowsePage(),
         '/favorites': (context) => const FavoritesPage(),
         '/profile': (context) => const ProfilePage(),
@@ -104,25 +110,18 @@ class _MyAppState extends State<MyApp> {
                   trailing: Switch(
                     value: _isNightMode ?? false,
                     activeColor: Colors.blue[500],
-                    onChanged: (value) {
-                      // TODO: Implement night mode feature
-                      setState(() {
-                        _isNightMode = value;
-                      });
-                    },
+                    onChanged: (value) => setState(() {
+                      _isNightMode = value;
+                    }),
                   ),
                   onTap: () {},
                 ),
-                // ListTile(
-                //   leading: const Icon(Icons.settings),
-                //   title: const Text("S E T T I N G S"),
-                //   onTap: () {
-                //     Navigator.pushNamed(context, "/profile");
-                //   },
-                // ),
-                const ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text("L O G  O U T"),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text("L O G  O U T"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/login");
+                  },
                 ),
                 const Spacer(),
                 ListTile(
@@ -163,8 +162,24 @@ class _MyAppState extends State<MyApp> {
         floatingActionButton: (accounts[0].userType == "Owner" ||
                     accounts[0].userType == "Admin") &&
                 (_selectedIndex == 0)
-            ? FloatingActionButton(
-                onPressed: () {}, child: const Icon(Icons.add))
+            ? Builder(builder: (context) {
+                return FloatingActionButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        constraints: const BoxConstraints(maxHeight: 600),
+                        backgroundColor: Colors.blueGrey[800],
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(25),
+                          ),
+                        ),
+                        builder: (context) => const NewGameModal(),
+                      );
+                    },
+                    child: const Icon(Icons.add));
+              })
             : null,
         backgroundColor: Colors.blueGrey[700],
         body: _pages[_selectedIndex],

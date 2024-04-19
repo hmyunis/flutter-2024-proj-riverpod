@@ -18,8 +18,19 @@ class FavoriteItem extends StatelessWidget {
         ),
       ),
       tileColor: Colors.blueGrey,
-      subtitle: Text(game.description),
-      leading: Image.asset(game.imageUrl),
+      subtitle: Text(
+        game.description,
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w300,
+          color: Colors.grey,
+        ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+      ),
+      leading: ClipRRect(
+          borderRadius: BorderRadius.circular(2),
+          child: Image.asset(game.imageUrl)),
       onTap: () {
         Navigator.push(
           context,

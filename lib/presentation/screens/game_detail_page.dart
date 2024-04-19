@@ -186,7 +186,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     const Expanded(
                       flex: 1,
                       child: Icon(
-                        Icons.person,
+                        Icons.account_circle,
                         size: 40,
                         color: Colors.blueGrey,
                       ),

@@ -43,7 +43,10 @@ class _CommentSectionState extends State<CommentSection> {
             color: Colors.grey,
           ),
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 5,
+              ),
               itemBuilder: (context, index) {
                 if (!hasComments(widget.game.title)) {
                   return const Center(
@@ -57,40 +60,54 @@ class _CommentSectionState extends State<CommentSection> {
                   );
                 }
 
-                return ListTile(
-                  tileColor: Colors.blueGrey[100],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: const BorderSide(
-                      color: Colors.grey,
-                      width: 1,
+                return Dismissible(
+                  key: UniqueKey(),
+                  onDismissed: (direction) {
+                    setState(() {
+                      reviews.removeAt(index);
+                    });
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 10),
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.white,
                     ),
                   ),
-                  contentPadding: const EdgeInsets.all(5),
-                  leading: const Icon(
-                    Icons.person,
-                    size: 40,
-                    color: Colors.blueGrey,
-                  ),
-                  title: Text(
-                    filteredReviews[index].username,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
+                  direction: DismissDirection.endToStart,
+                  child: ListTile(
+                    tileColor: Colors.blueGrey[100],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),
-                  subtitle: Text(
-                    filteredReviews[index].comment,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                  trailing: Text(
-                    filteredReviews[index].date,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
+                    contentPadding: const EdgeInsets.all(10),
+                    leading: const Icon(
+                      Icons.account_circle,
+                      size: 40,
+                      color: Colors.blueGrey,
+                    ),
+                    title: Text(
+                      filteredReviews[index].username,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    subtitle: Text(
+                      filteredReviews[index].comment,
+                      // overflow: TextOverflow.ellipsis,
+                      // maxLines: 2,
+                    ),
+                    trailing: Text(
+                      filteredReviews[index].date,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 );

@@ -60,22 +60,42 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/apex.jpg
-    - assets/images/cyberpunk.jpg
-    - assets/images/minecraft.jpg
-    - assets/images/tekken-8.jpg
-    - assets/images/valorant.jpg
-    - assets/images/zelda.jpg
-    - assets/images/bloodborne.jpg
-    - assets/images/destiny-2.jpg
-    - assets/images/doom.jpg
-    - assets/images/elvenar.jpg
-    - assets/images/fifa-16.jpg
-    - assets/images/fire-force.jpg
-    - assets/images/haikyu.jpg
-    - assets/images/harry-potter.jpg
-    - assets/images/mortal-kombat.jpg
-    - assets/images/my-hero.jpg
+    - assets/images/login-bg.jpg
+    - assets/images/register-bg.jpg
+    - assets/images/games/apex.jpg
+    - assets/images/games/cyberpunk.jpg
+    - assets/images/games/minecraft.jpg
+    - assets/images/games/tekken-8.jpg
+    - assets/images/games/valorant.jpg
+    - assets/images/games/zelda.jpg
+    - assets/images/games/bloodborne.jpg
+    - assets/images/games/destiny-2.jpg
+    - assets/images/games/doom.jpg
+    - assets/images/games/elvenar.jpg
+    - assets/images/games/fifa-16.jpg
+    - assets/images/games/fire-force.jpg
+    - assets/images/games/haikyu.jpg
+    - assets/images/games/harry-potter.jpg
+    - assets/images/games/mortal-kombat.jpg
+    - assets/images/games/my-hero.jpg
+    - assets/images/avatars/001.jpg
+    - assets/images/avatars/002.jpg
+    - assets/images/avatars/003.jpg
+    - assets/images/avatars/004.jpg
+    - assets/images/avatars/005.jpg
+    - assets/images/avatars/006.jpg
+    - assets/images/avatars/007.jpg
+    - assets/images/avatars/008.jpg
+    - assets/images/avatars/009.jpg
+    - assets/images/avatars/010.jpg
+    - assets/images/avatars/011.jpg
+    - assets/images/avatars/012.jpg
+    - assets/images/avatars/013.jpg
+    - assets/images/avatars/014.jpg
+    - assets/images/avatars/015.jpg
+    - assets/images/avatars/016.jpg
+    - assets/images/avatars/017.jpg
+    - assets/images/avatars/018.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

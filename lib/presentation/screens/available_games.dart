@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'browse_page.dart';
+import '../data/games.dart';
+import '../widgets/games_list.dart';
 
 class AvailableGames extends StatelessWidget {
   const AvailableGames({super.key});
@@ -7,20 +8,13 @@ class AvailableGames extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[700],
+      backgroundColor: Colors.blueGrey[800],
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[900],
-        title: const Text(
-          'A L L  G A M E S',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
+        title: const Text("ALL GAMES"),
         centerTitle: true,
+        backgroundColor: Colors.blueGrey[900],
       ),
-      body: BrowsePage(),
+      body: GamesList(games),
     );
   }
 }

@@ -66,6 +66,16 @@ flutter:
     - assets/images/tekken-8.jpg
     - assets/images/valorant.jpg
     - assets/images/zelda.jpg
+    - assets/images/bloodborne.jpg
+    - assets/images/destiny-2.jpg
+    - assets/images/doom.jpg
+    - assets/images/elvenar.jpg
+    - assets/images/fifa-16.jpg
+    - assets/images/fire-force.jpg
+    - assets/images/haikyu.jpg
+    - assets/images/harry-potter.jpg
+    - assets/images/mortal-kombat.jpg
+    - assets/images/my-hero.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

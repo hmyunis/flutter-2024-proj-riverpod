@@ -38,9 +38,9 @@ List<Review> reviews = [
   ),
   Review(
     username: "BumbleBee",
-    gameTitle: "God of War: Ragnarok",
+    gameTitle: "Harry Potter",
     date: "15-04-2024",
-    comment: "Kratos is a beast!",
+    comment: "You are a wizard Harry Potter!",
     rating: 5,
   ),
   Review(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_game_catalogue_app/presentation/screens/available_games.dart';
 import 'presentation/screens/about_page.dart';
 import 'presentation/screens/browse_page.dart';
 import 'presentation/screens/favorites_page.dart';
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         '/browse': (context) => const BrowsePage(),
         '/favorites': (context) => const FavoritesPage(),
         '/profile': (context) => const ProfilePage(),
+        '/allgames': (context) => const AvailableGames(),
         '/about': (context) => const AboutPage(),
       },
       home: Scaffold(
@@ -92,7 +94,7 @@ class _MyAppState extends State<MyApp> {
                   leading: const Icon(Icons.fitbit_outlined),
                   title: const Text("G A M E S"),
                   onTap: () {
-                    Navigator.pushNamed(context, '/browse');
+                    Navigator.pushNamed(context, '/allgames');
                   },
                 ),
                 const Divider(),

@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewGameModal extends StatefulWidget {
+import '../../models/game.dart';
+import '../../providers/game_provider.dart';
+import '../../providers/user_session_provider.dart';
+
+class NewGameModal extends ConsumerStatefulWidget {
   const NewGameModal({super.key});
 
   @override
-  State<NewGameModal> createState() => _NewGameModalState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _NewGameModalState();
 }
 
-class _NewGameModalState extends State<NewGameModal> {
+class _NewGameModalState extends ConsumerState<NewGameModal> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _imageUrlController = TextEditingController();
   final TextEditingController _genreController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _platformController = TextEditingController();
+  final TextEditingController _publisherController = TextEditingController();
+  final TextEditingController _releaseDateController = TextEditingController();
 
   @override
   void dispose() {
@@ -19,6 +27,9 @@ class _NewGameModalState extends State<NewGameModal> {
     _imageUrlController.dispose();
     _genreController.dispose();
     _descriptionController.dispose();
+    _platformController.dispose();
+    _publisherController.dispose();
+    _releaseDateController.dispose();
     super.dispose();
   }
 
@@ -65,6 +76,30 @@ class _NewGameModalState extends State<NewGameModal> {
             style: const TextStyle(color: Colors.grey),
           ),
           TextField(
+            controller: _platformController,
+            decoration: const InputDecoration(
+              labelText: 'Platform',
+              labelStyle: TextStyle(color: Colors.white),
+            ),
+            style: const TextStyle(color: Colors.grey),
+          ),
+          TextField(
+            controller: _publisherController,
+            decoration: const InputDecoration(
+              labelText: 'Publisher',
+              labelStyle: TextStyle(color: Colors.white),
+            ),
+            style: const TextStyle(color: Colors.grey),
+          ),
+          TextField(
+            controller: _releaseDateController,
+            decoration: const InputDecoration(
+              labelText: 'Release Date',
+              labelStyle: TextStyle(color: Colors.white),
+            ),
+            style: const TextStyle(color: Colors.grey),
+          ),
+          TextField(
             controller: _descriptionController,
             decoration: const InputDecoration(
               labelText: 'Description',
@@ -73,15 +108,30 @@ class _NewGameModalState extends State<NewGameModal> {
             maxLines: 3,
             style: const TextStyle(color: Colors.grey),
           ),
-          const SizedBox(height: 20),
-          ElevatedButton(
+          const SizedBox(height: 300),
+          ElevatedButton.icon(
             onPressed: () {
+              ref
+                  .read(gameListProvider(ref.read(userSessionProvider).token!)
+                      .notifier)
+                  .createGame(
+                    Game(
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                      genre: _genreController.text,
+                      platform: _platformController.text,
+                      publisher: _publisherController.text,
+                      releaseDate: _releaseDateController.text,
+                      imageUrl: _imageUrlController.text,
+                    ),
+                  );
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
             ),
-            child: const Text('Create game',
+            icon: const Icon(Icons.save),
+            label: const Text('Create game',
                 style: TextStyle(color: Colors.white)),
           ),
         ],

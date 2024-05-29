@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../models/game.dart';
+import '../../models/game.dart';
 import 'game_item.dart';
 
 class GamesList extends StatelessWidget {
-  const GamesList(this.games, {super.key});
+  const GamesList(this.games, this.favoriteGameIds, {super.key});
 
   final List<Game> games;
+  final List<int> favoriteGameIds;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,12 @@ class GamesList extends StatelessWidget {
           childAspectRatio: 0.7,
         ),
         itemCount: games.length,
-        itemBuilder: (context, index) => GameItem(games[index]),
+        itemBuilder: (context, index) {
+          if (favoriteGameIds.contains(games[index].id)) {
+            return GameItem(games[index], true);
+          }
+          return GameItem(games[index], false);
+        },
       ),
     );
   }

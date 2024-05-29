@@ -58,7 +58,7 @@ Download Video Game Catalogue now and embark on a journey to discover, organize,
           child: ListView.separated(
             itemBuilder: (context, index) {
               if (index % 2 == 0 && index != 0 || index == 1) {
-                return Text(
+                return SelectableText(
                   aboutPageContent[index],
                   textAlign: TextAlign.start,
                   style: const TextStyle(
@@ -68,7 +68,7 @@ Download Video Game Catalogue now and embark on a journey to discover, organize,
                   ),
                 );
               }
-              return Text(
+              return SelectableText(
                 aboutPageContent[index],
                 textAlign: TextAlign.start,
                 style: const TextStyle(

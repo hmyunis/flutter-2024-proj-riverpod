@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
-import '../models/game.dart';
-import '../screens/game_detail_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../models/game.dart';
+import '../screens/about_page.dart';
+// import '../screens/screens/game_detail_page.dart';
 
-class GameItem extends StatefulWidget {
-  const GameItem(this.game, {super.key});
+class GameItem extends ConsumerStatefulWidget {
+  const GameItem(this.game, this.isStarred, {super.key});
 
   final Game game;
+  final bool isStarred;
 
   @override
-  State<GameItem> createState() => _GameItemState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _GameItemState();
 }
 
-class _GameItemState extends State<GameItem> {
-  final Map<String, Icon> _favorites =
-      {}; // Map to store favorite games, title: Icon()
-
+class _GameItemState extends ConsumerState<GameItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        // context.read<ReviewBloc>().add(LoadGameReviews(
+        //       widget.game,
+        //       context.read<UserSessionBloc>().state.id!,
+        //     ));
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => GameDetailPage(game: widget.game),
+            builder: (context) => AboutPage(),
           ),
         );
       },
@@ -54,7 +58,9 @@ class _GameItemState extends State<GameItem> {
                 ),
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  widget.game.title,
+                  widget.game.title.length > 15
+                      ? '${widget.game.title.substring(0, 15)}...'
+                      : widget.game.title,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -68,19 +74,19 @@ class _GameItemState extends State<GameItem> {
               right: 0,
               child: IconButton(
                 onPressed: () {
-                  setState(() {
-                    if (_favorites.containsKey(widget.game.title)) {
-                      _favorites.remove(widget.game.title);
-                    } else {
-                      _favorites[widget.game.title] = const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      );
-                    }
-                  });
+                  if (widget.isStarred) {
+                    // context.read<GamesBloc>().add(RemoveAGameFromCollection(
+                    //     widget.game,
+                    //     context.read<UserSessionBloc>().state.id!));
+                  } else {
+                    // context.read<GamesBloc>().add(
+                    //       AddGameToCollection(widget.game,
+                    //           context.read<UserSessionBloc>().state.id!),
+                    //     );
+                  }
                 },
-                icon: (_favorites.containsKey(widget.game.title))
-                    ? _favorites[widget.game.title]!
+                icon: widget.isStarred
+                    ? const Icon(Icons.star, color: Colors.amber)
                     : const Icon(Icons.star_border, color: Colors.amber),
                 padding: const EdgeInsets.all(5),
                 alignment: Alignment.topRight,

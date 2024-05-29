@@ -1,6 +1,6 @@
 {
-    "name": "video_game_catalogue_app",
-    "short_name": "video_game_catalogue_app",
+    "name": "video_game_catalogue_riverpod",
+    "short_name": "video_game_catalogue_riverpod",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

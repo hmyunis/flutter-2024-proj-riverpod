@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_game_catalogue_riverpod/providers/collection_provider.dart';
+import 'package:video_game_catalogue_riverpod/providers/game_provider.dart';
 import '../../models/game.dart';
+import '../../providers/user_session_provider.dart';
 import '../screens/about_page.dart';
 // import '../screens/screens/game_detail_page.dart';
 
@@ -19,14 +22,10 @@ class _GameItemState extends ConsumerState<GameItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // context.read<ReviewBloc>().add(LoadGameReviews(
-        //       widget.game,
-        //       context.read<UserSessionBloc>().state.id!,
-        //     ));
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AboutPage(),
+            builder: (context) => const AboutPage(),
           ),
         );
       },
@@ -75,14 +74,17 @@ class _GameItemState extends ConsumerState<GameItem> {
               child: IconButton(
                 onPressed: () {
                   if (widget.isStarred) {
-                    // context.read<GamesBloc>().add(RemoveAGameFromCollection(
-                    //     widget.game,
-                    //     context.read<UserSessionBloc>().state.id!));
+                    ref
+                        .read(collectionListProvider(
+                                ref.read(userSessionProvider).id!)
+                            .notifier)
+                        .removeGameFromCollection(widget.game);
                   } else {
-                    // context.read<GamesBloc>().add(
-                    //       AddGameToCollection(widget.game,
-                    //           context.read<UserSessionBloc>().state.id!),
-                    //     );
+                    ref
+                        .read(collectionListProvider(
+                                ref.read(userSessionProvider).id!)
+                            .notifier)
+                        .addGameToCollection(widget.game);
                   }
                 },
                 icon: widget.isStarred

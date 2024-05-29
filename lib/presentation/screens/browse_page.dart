@@ -129,8 +129,16 @@ class BrowsePage extends ConsumerWidget {
             ),
           ],
         ),
-      AsyncError() => const Center(child: Text("Error, please try again")),
-      _ => const Center(child: CircularProgressIndicator()),
+      AsyncError() => const Scaffold(
+          body: Center(
+            child: Text("Error, please try again"),
+          ),
+        ),
+      _ => const Center(
+          child: CircularProgressIndicator(
+            color: Colors.green,
+          ),
+        ),
     };
   }
 }

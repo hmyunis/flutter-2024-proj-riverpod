@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_game_catalogue_riverpod/data/repositories/collections_repository.dart';
-import 'package:video_game_catalogue_riverpod/data/services/collections_api_service.dart';
+
+import '../data/repositories/collections_repository.dart';
 import '../data/repositories/games_repository.dart';
 import '../data/repositories/users_repository.dart';
+import '../data/services/collections_api_service.dart';
 import '../data/services/games_api_service.dart';
 import '../data/services/users_api_service.dart';
 import '../models/collection.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'browse_page.dart';
-// import 'favorites_page.dart';
+import 'favorites_page.dart';
 // import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List _pages = [
     const BrowsePage(),
-    // const FavoritesPage(),
+    const FavoritesPage(),
     // const ProfileScreen(),
   ];
 

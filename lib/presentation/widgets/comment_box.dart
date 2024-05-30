@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_game_catalogue_riverpod/core/avatars.dart';
+import 'package:video_game_catalogue_riverpod/providers/avatar_provider.dart';
 import 'package:video_game_catalogue_riverpod/providers/review_provider.dart';
 
 import '../../models/game.dart';
@@ -36,10 +38,16 @@ class _CommentBoxState extends ConsumerState<CommentBox> {
         children: [
           Expanded(
             flex: 1,
-            child: Icon(
-              Icons.account_circle,
-              size: 40,
-              color: Colors.cyan[700],
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.blueGrey,
+                ),
+              ),
+              child: CircleAvatar(
+                backgroundImage: AssetImage(avatars[ref.watch(avatarProvider)]),
+              ),
             ),
           ),
           const SizedBox(

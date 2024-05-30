@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../core/avatars.dart';
+import '../../providers/avatar_provider.dart';
 
-class AvatarPickerDialog extends StatefulWidget {
-  const AvatarPickerDialog({super.key});
+// ignore: must_be_immutable
+class AvatarPickerDialog extends ConsumerWidget {
+  AvatarPickerDialog({super.key});
 
-  @override
-  State<AvatarPickerDialog> createState() => _AvatarPickerDialogState();
-}
-
-class _AvatarPickerDialogState extends State<AvatarPickerDialog> {
   int _selectedAvatarIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       title: const Text(
         'Select an Avatar',
@@ -35,10 +34,11 @@ class _AvatarPickerDialogState extends State<AvatarPickerDialog> {
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: () {
-                setState(() {
-                  _selectedAvatarIndex = index;
-                  Navigator.of(context).pop(_selectedAvatarIndex);
-                });
+                _selectedAvatarIndex = index;
+                ref
+                    .read(avatarProvider.notifier)
+                    .setIndex(_selectedAvatarIndex);
+                Navigator.of(context).pop();
               },
               child: Container(
                 decoration: BoxDecoration(

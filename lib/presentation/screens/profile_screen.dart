@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/avatars.dart';
 import '../../models/user.dart';
+import '../../providers/avatar_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/user_session_provider.dart';
 import '../widgets/avatar_picker_dialog.dart';
@@ -173,7 +174,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               ),
                             ),
                             child: CircleAvatar(
-                              backgroundImage: AssetImage(avatars[avatarIndex]),
+                              backgroundImage: AssetImage(
+                                  avatars[ref.watch(avatarProvider)]),
                               radius: 50,
                             ),
                           ),
@@ -184,17 +186,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               onPressed: () {
                                 showDialog(
                                   context: context,
-                                  builder: (context) =>
-                                      const AvatarPickerDialog(),
-                                ).then((value) {
-                                  setState(() {
-                                    if (value == null) {
-                                      avatarIndex = 0;
-                                    } else {
-                                      avatarIndex = value;
-                                    }
-                                  });
-                                });
+                                  builder: (context) => AvatarPickerDialog(),
+                                );
                               },
                               icon: const Icon(
                                 Icons.edit,

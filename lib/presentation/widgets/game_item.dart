@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../providers/collection_provider.dart';
 import '../../models/game.dart';
 import '../../providers/user_session_provider.dart';
-import '../screens/about_page.dart';
 import '../screens/game_detail_page.dart';
-// import '../screens/screens/game_detail_page.dart';
 
 class GameItem extends ConsumerStatefulWidget {
   const GameItem(this.game, this.isStarred, {super.key});

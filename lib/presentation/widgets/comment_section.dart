@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_game_catalogue_riverpod/providers/review_provider.dart';
-import 'package:video_game_catalogue_riverpod/providers/user_session_provider.dart';
+
 import '../../models/review.dart';
+import '../../providers/review_provider.dart';
+import '../../providers/user_session_provider.dart';
 
 class CommentSection extends ConsumerStatefulWidget {
   const CommentSection(

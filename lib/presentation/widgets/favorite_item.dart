@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/game.dart';
-// import '../screens/game_detail_page.dart';
+import '../screens/game_detail_page.dart';
 
 class FavoriteItem extends StatelessWidget {
   const FavoriteItem({
@@ -45,16 +45,12 @@ class FavoriteItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(2),
           child: Image.asset(game.imageUrl)),
       onTap: () {
-        // context.read<ReviewBloc>().add(LoadGameReviews(
-        //       game,
-        //       context.read<UserSessionBloc>().state.id!,
-        //     ));
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => GameDetailPage(game: game),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GameDetailPage(game: game),
+          ),
+        );
       },
     );
   }

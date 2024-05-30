@@ -4,6 +4,7 @@ import '../../providers/collection_provider.dart';
 import '../../models/game.dart';
 import '../../providers/user_session_provider.dart';
 import '../screens/about_page.dart';
+import '../screens/game_detail_page.dart';
 // import '../screens/screens/game_detail_page.dart';
 
 class GameItem extends ConsumerStatefulWidget {
@@ -24,7 +25,7 @@ class _GameItemState extends ConsumerState<GameItem> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const AboutPage(),
+            builder: (context) => GameDetailPage(game: widget.game),
           ),
         );
       },

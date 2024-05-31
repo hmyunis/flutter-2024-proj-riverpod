@@ -384,7 +384,7 @@ class LoadingScreen extends ConsumerWidget {
                 Icon(Icons.warning_amber_rounded,
                     size: 120, color: Colors.red.withOpacity(0.5)),
                 const SizedBox(height: 16),
-                const Text("Invalid login credentials"),
+                const Text("Invalid login credentials or URL"),
                 const SizedBox(height: 16),
                 const CircularProgressIndicator(color: Colors.red),
                 const SizedBox(height: 16),

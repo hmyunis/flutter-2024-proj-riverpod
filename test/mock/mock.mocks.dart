@@ -10,6 +10,8 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:state_notifier/state_notifier.dart' as _i6;
 import 'package:video_game_catalogue_riverpod/models/review.dart' as _i8;
 import 'package:video_game_catalogue_riverpod/models/user.dart' as _i2;
+import 'package:video_game_catalogue_riverpod/providers/auth_provider.dart'
+    as _i9;
 import 'package:video_game_catalogue_riverpod/providers/review_provider.dart'
     as _i7;
 import 'package:video_game_catalogue_riverpod/providers/user_session_provider.dart'
@@ -127,6 +129,15 @@ class MockUserSessionNotifier extends _i1.Mock
         Invocation.method(
           #setUser,
           [user],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void clear() => super.noSuchMethod(
+        Invocation.method(
+          #clear,
+          [],
         ),
         returnValueForMissingStub: null,
       );
@@ -322,4 +333,153 @@ class MockReviewNotifier extends _i1.Mock implements _i7.ReviewNotifier {
         ),
         returnValue: false,
       ) as bool);
+}
+
+/// A class which mocks [AuthNotifier].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthNotifier extends _i1.Mock implements _i9.AuthNotifier {
+  MockAuthNotifier() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  set onError(_i3.ErrorListener? _onError) => super.noSuchMethod(
+        Invocation.setter(
+          #onError,
+          _onError,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get mounted => (super.noSuchMethod(
+        Invocation.getter(#mounted),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i5.Stream<_i3.AsyncValue<_i9.AuthState>> get stream => (super.noSuchMethod(
+        Invocation.getter(#stream),
+        returnValue: _i5.Stream<_i3.AsyncValue<_i9.AuthState>>.empty(),
+      ) as _i5.Stream<_i3.AsyncValue<_i9.AuthState>>);
+
+  @override
+  _i3.AsyncValue<_i9.AuthState> get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _FakeAsyncValue_2<_i9.AuthState>(
+          this,
+          Invocation.getter(#state),
+        ),
+      ) as _i3.AsyncValue<_i9.AuthState>);
+
+  @override
+  set state(_i3.AsyncValue<_i9.AuthState>? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.AsyncValue<_i9.AuthState> get debugState => (super.noSuchMethod(
+        Invocation.getter(#debugState),
+        returnValue: _FakeAsyncValue_2<_i9.AuthState>(
+          this,
+          Invocation.getter(#debugState),
+        ),
+      ) as _i3.AsyncValue<_i9.AuthState>);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  void login({
+    required String? username,
+    required String? password,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #login,
+          [],
+          {
+            #username: username,
+            #password: password,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void register({
+    required String? username,
+    required String? email,
+    required String? password,
+    required String? confirmPassword,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #register,
+          [],
+          {
+            #username: username,
+            #email: email,
+            #password: password,
+            #confirmPassword: confirmPassword,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void logout() => super.noSuchMethod(
+        Invocation.method(
+          #logout,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool updateShouldNotify(
+    _i3.AsyncValue<_i9.AuthState>? old,
+    _i3.AsyncValue<_i9.AuthState>? current,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateShouldNotify,
+          [
+            old,
+            current,
+          ],
+        ),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i3.RemoveListener addListener(
+    _i6.Listener<_i3.AsyncValue<_i9.AuthState>>? listener, {
+    bool? fireImmediately = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+          {#fireImmediately: fireImmediately},
+        ),
+        returnValue: () {},
+      ) as _i3.RemoveListener);
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

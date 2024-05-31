@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_game_catalogue_riverpod/core/avatars.dart';
-import 'package:video_game_catalogue_riverpod/providers/avatar_provider.dart';
-import 'package:video_game_catalogue_riverpod/providers/review_provider.dart';
 
+import '../../core/avatars.dart';
 import '../../models/game.dart';
 import '../../models/review.dart';
+import '../../providers/avatar_provider.dart';
+import '../../providers/review_provider.dart';
 import '../../providers/user_session_provider.dart';
 
 class CommentBox extends ConsumerStatefulWidget {
@@ -79,13 +79,17 @@ class _CommentBoxState extends ConsumerState<CommentBox> {
             child: IconButton(
               onPressed: () {
                 if (_commentController.text.trim().isNotEmpty) {
-                  ref.read(reviewListProvider.notifier).addGameComment(Review(
+                  ref
+                      .read(reviewListProvider.notifier)
+                      .addGameComment(Review(
                         userId: ref.read(userSessionProvider).id!,
                         gameId: widget.game.id!,
                         comment: _commentController.text,
                         rating: 0,
-                      ));
-                  ref.invalidate(gameRatingCommentsProvider);
+                      ))
+                      .whenComplete(() {
+                    ref.invalidate(gameRatingCommentsProvider);
+                  });
                   _commentController.clear();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

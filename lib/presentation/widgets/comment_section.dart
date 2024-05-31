@@ -170,163 +170,192 @@ class _CommentSectionState extends ConsumerState<CommentSection> {
         const SizedBox(
           height: 10,
         ),
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => const SizedBox(
-            height: 5,
-          ),
-          itemBuilder: (context, index) {
-            return Dismissible(
-              key: UniqueKey(),
-              onDismissed: (direction) {
-                if (ref.read(userSessionProvider).id ==
-                    widget.reviews[index].userId) {
-                  ref
-                      .read(reviewListProvider.notifier)
-                      .deleteGameComment(Review(
-                        userId: widget.reviews[index].userId,
-                        gameId: widget.reviews[index].gameId,
-                        comment: widget.reviews[index].comment,
-                        rating: 0,
-                      ));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.disabled_by_default_rounded,
-                            color: Colors.red[300],
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Flexible(
-                            child: Text(
-                              "You can only delete your own comments.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18.0,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      backgroundColor: Colors.blueGrey.withOpacity(0.5),
-                      behavior: SnackBarBehavior.floating,
-                      margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                  );
-                  setState(() {
-                    widget.reviews.insert(index, widget.reviews[index]);
-                  });
-                }
-              },
-              background: Container(
-                color: Colors.red,
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(right: 10),
-                child: const Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-              ),
-              direction: DismissDirection.endToStart,
-              child: GestureDetector(
-                onTap: () {
-                  if (ref.read(userSessionProvider).id ==
-                      widget.reviews[index].userId) {
-                    _showCommentEditDialog(widget.reviews[index]);
-                  }
-                },
-                child: ListTile(
-                  tileColor: (ref.read(userSessionProvider).id ==
-                          widget.reviews[index].userId)
-                      ? Colors.grey[100]
-                      : Colors.blueGrey[100],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: const BorderSide(color: Colors.blueGrey, width: 1.5),
-                  ),
-                  contentPadding: const EdgeInsets.all(10),
-                  leading: Icon(
-                    Icons.account_circle,
-                    size: 40,
-                    color: (ref.read(userSessionProvider).id ==
-                            widget.reviews[index].userId)
-                        ? Colors.cyan[700]
-                        : Colors.blueGrey,
-                  ),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        widget.numReviews == 0
+            ? Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Flexible(
-                        child: Text(
-                          widget.userIdToUsernameMap[
-                                  widget.reviews[index].userId] ??
-                              "DELETED ACCOUNT",
-                          style: TextStyle(
-                            fontSize: 18,
-                            letterSpacing: 2.0,
-                            color: (ref.read(userSessionProvider).id ==
-                                    widget.reviews[index].userId)
-                                ? Colors.cyan[800]
-                                : Colors.blueGrey,
-                          ),
-                        ),
+                      Icon(
+                        Icons.chat_bubble_outline_rounded,
+                        color: Colors.grey.withOpacity(0.5),
+                        size: 100,
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            widget.reviews[index].createdAt
-                                .toString()
-                                .substring(
-                                    0,
-                                    widget.reviews[index].createdAt
-                                        .toString()
-                                        .indexOf(",")),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          Text(
-                            " |${widget.reviews[index].createdAt.toString().substring(
-                                  widget.reviews[index].createdAt
-                                          .toString()
-                                          .indexOf(",") +
-                                      1,
-                                )}",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "No comment found",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
                       ),
                     ],
                   ),
-                  subtitle: Text(widget.reviews[index].comment!,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.blueGrey[900],
-                      )),
                 ),
+              )
+            : ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 5,
+                ),
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    key: UniqueKey(),
+                    onDismissed: (direction) {
+                      if (ref.read(userSessionProvider).id ==
+                          widget.reviews[index].userId) {
+                        ref
+                            .read(reviewListProvider.notifier)
+                            .deleteGameComment(Review(
+                              userId: widget.reviews[index].userId,
+                              gameId: widget.reviews[index].gameId,
+                              comment: widget.reviews[index].comment,
+                              rating: 0,
+                            ));
+                        ref.invalidate(gameRatingCommentsProvider);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.disabled_by_default_rounded,
+                                  color: Colors.red[300],
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Flexible(
+                                  child: Text(
+                                    "You can only delete your own comments.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            backgroundColor: Colors.blueGrey.withOpacity(0.5),
+                            behavior: SnackBarBehavior.floating,
+                            margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                        );
+                        setState(() {
+                          widget.reviews.insert(index, widget.reviews[index]);
+                        });
+                      }
+                    },
+                    background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 10),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    ),
+                    direction: DismissDirection.endToStart,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (ref.read(userSessionProvider).id ==
+                            widget.reviews[index].userId) {
+                          _showCommentEditDialog(widget.reviews[index]);
+                        }
+                      },
+                      child: ListTile(
+                        tileColor: (ref.read(userSessionProvider).id ==
+                                widget.reviews[index].userId)
+                            ? Colors.grey[100]
+                            : Colors.blueGrey[100],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: const BorderSide(
+                              color: Colors.blueGrey, width: 1.5),
+                        ),
+                        contentPadding: const EdgeInsets.all(10),
+                        leading: Icon(
+                          Icons.account_circle,
+                          size: 40,
+                          color: (ref.read(userSessionProvider).id ==
+                                  widget.reviews[index].userId)
+                              ? Colors.cyan[700]
+                              : Colors.blueGrey,
+                        ),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                widget.userIdToUsernameMap[
+                                        widget.reviews[index].userId] ??
+                                    "DELETED ACCOUNT",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  letterSpacing: 2.0,
+                                  color: (ref.read(userSessionProvider).id ==
+                                          widget.reviews[index].userId)
+                                      ? Colors.cyan[800]
+                                      : Colors.blueGrey,
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  widget.reviews[index].createdAt
+                                      .toString()
+                                      .substring(
+                                          0,
+                                          widget.reviews[index].createdAt
+                                              .toString()
+                                              .indexOf(",")),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Text(
+                                  " |${widget.reviews[index].createdAt.toString().substring(
+                                        widget.reviews[index].createdAt
+                                                .toString()
+                                                .indexOf(",") +
+                                            1,
+                                      )}",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        subtitle: Text(widget.reviews[index].comment!,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blueGrey[900],
+                            )),
+                      ),
+                    ),
+                  );
+                },
+                itemCount: widget.numReviews,
               ),
-            );
-          },
-          itemCount: widget.numReviews,
-        ),
       ],
     );
   }

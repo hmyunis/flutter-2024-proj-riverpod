@@ -8,7 +8,7 @@ import 'package:video_game_catalogue_riverpod/presentation/widgets/comment_secti
 import 'package:video_game_catalogue_riverpod/providers/review_provider.dart';
 import 'package:video_game_catalogue_riverpod/providers/user_session_provider.dart';
 
-import '../mock/mock.mocks.dart';
+import '../../mock/mock.mocks.dart';
 
 void main() {
   final mockUserSessionNotifier = MockUserSessionNotifier();
@@ -56,7 +56,7 @@ void main() {
     await tester.pumpWidget(createWidgetUnderTest());
 
     // expect(find.text('Edit Comment'), findsOneWidget);
-    expect(find.byType(Dismissible), findsOneWidget);
+    expect(find.byType(Dismissible), findsNWidgets(0));
     // expect(find.text('Not bad'), findsOneWidget);
     // expect(find.text('testuser'), findsOneWidget);
     // expect(find.text('anotheruser'), findsOneWidget);

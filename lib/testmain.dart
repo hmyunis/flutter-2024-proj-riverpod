@@ -9,26 +9,14 @@ void main() {
   runApp(
     ProviderScope(
       child: MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: CommentSection(
-                reviews: [
-                  Review(
-                      id: 1,
-                      userId: 1,
-                      gameId: 1,
-                      comment: 'Great game!',
-                      rating: 1),
-                  Review(
-                      id: 2,
-                      userId: 2,
-                      gameId: 1,
-                      comment: 'Not bad',
-                      rating: 3),
-                ],
-                numReviews: 2,
-                userIdToUsernameMap: {}),
-          ),
+        home: CommentSection(
+          reviews: [
+            Review(
+                id: 1, userId: 1, gameId: 1, comment: 'Great game!', rating: 1),
+            Review(id: 2, userId: 2, gameId: 1, comment: 'Not bad', rating: 3),
+          ],
+          numReviews: 0,
+          userIdToUsernameMap: {1: 'user1', 2: 'user2'},
         ),
       ),
     ),

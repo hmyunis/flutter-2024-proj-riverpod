@@ -8,6 +8,10 @@ class UserSessionNotifier extends StateNotifier<User> {
   void setUser(User user) {
     state = user;
   }
+
+  void clear() {
+    state = User(username: "", email: "", joinDate: "", role: "");
+  }
 }
 
 final userSessionProvider = StateNotifierProvider<UserSessionNotifier, User>(

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../presentation/screens/loading_screen.dart';
+
 import '../presentation/screens/about_page.dart';
-import '../presentation/screens/browse_page.dart';
-import '../presentation/screens/favorites_page.dart';
 import '../presentation/screens/home_screen.dart';
+import '../presentation/screens/loading_screen.dart';
 import '../presentation/screens/login_page.dart';
-import '../presentation/screens/profile_screen.dart';
 import '../presentation/screens/registration_page.dart';
 import '../presentation/screens/role_mgt_screen.dart';
 
@@ -28,24 +26,6 @@ GoRouter appRouter = GoRouter(
       path: "/home",
       pageBuilder: (context, state) => const MaterialPage(
         child: HomeScreen(),
-      ),
-    ),
-    GoRoute(
-      path: "/browse",
-      pageBuilder: (context, state) => const MaterialPage(
-        child: BrowsePage(),
-      ),
-    ),
-    GoRoute(
-      path: "/favorites",
-      pageBuilder: (context, state) => const MaterialPage(
-        child: FavoritesPage(),
-      ),
-    ),
-    GoRoute(
-      path: "/profile",
-      pageBuilder: (context, state) => const MaterialPage(
-        child: ProfileScreen(),
       ),
     ),
     GoRoute(

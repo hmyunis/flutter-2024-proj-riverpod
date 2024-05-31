@@ -46,7 +46,6 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
                                             ref.read(userSessionProvider).id!)
                                         .notifier)
                                     .removeGameFromCollection(allGames[index]);
-                                allGames.remove(allGames[index]);
                               } else if (direction ==
                                   DismissDirection.startToEnd) {
                                 if (index >= value[0].length) {

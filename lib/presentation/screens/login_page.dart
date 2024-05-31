@@ -79,6 +79,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     height: 20,
                   ),
                   TextField(
+                    key: const Key("login_username"),
                     controller: _usernameController,
                     style: const TextStyle(color: Colors.grey),
                     decoration: InputDecoration(
@@ -94,6 +95,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                   const SizedBox(height: 10),
                   TextField(
+                    key: const Key("login_password"),
                     controller: _passwordController,
                     obscureText: true,
                     style: const TextStyle(color: Colors.grey),
@@ -110,6 +112,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
+                    key: const Key("Login_button"),
                     onPressed: () {
                       // Input Validation
                       final String username = _usernameController.text.trim();
@@ -164,6 +167,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   Row(
                     children: [
                       TextButton(
+                        key: const Key("signup button"),
                         onPressed: () {
                           context.go('/register');
                         },

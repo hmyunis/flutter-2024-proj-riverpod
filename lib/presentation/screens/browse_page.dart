@@ -8,6 +8,7 @@ import '../widgets/new_game_modal.dart';
 
 class BrowsePage extends ConsumerWidget {
   const BrowsePage({super.key});
+  
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

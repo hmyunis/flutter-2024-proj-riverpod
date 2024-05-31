@@ -120,6 +120,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     height: 20,
                   ),
                   TextField(
+                    
                     key: const Key("username_field"),
                     controller: _usernameController,
                     style: const TextStyle(color: Colors.grey),

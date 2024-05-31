@@ -142,6 +142,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               child: const Text('Cancel'),
             ),
             TextButton(
+              key: const Key("confirm"),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -228,6 +229,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               child: const Text('Cancel'),
             ),
             TextButton(
+              key: const Key("terminated"),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -374,6 +376,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ),
                           const SizedBox(height: 10),
                           TextField(
+                            key: const Key("username_field"),
                             controller: _usernameController,
                             style: const TextStyle(color: Colors.grey),
                             decoration: InputDecoration(
@@ -385,6 +388,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ),
                           const SizedBox(height: 10),
                           TextField(
+                            key: const Key("email"),
                             controller: _emailController,
                             style: const TextStyle(color: Colors.grey),
                             decoration: InputDecoration(
@@ -396,6 +400,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ),
                           const SizedBox(height: 10),
                           TextField(
+                            key: const Key("newPassword"),
                             controller: _passwordController,
                             obscureText: true,
                             style: const TextStyle(color: Colors.grey),
@@ -411,6 +416,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             alignment: MainAxisAlignment.center,
                             children: [
                               ElevatedButton.icon(
+                                key: const Key("terminate"),
                                 onPressed: _showDeleteConfirmationDialog,
                                 style: ButtonStyle(
                                   backgroundColor:
@@ -421,6 +427,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               ),
                               const SizedBox(width: 10),
                               ElevatedButton.icon(
+                                key: const Key("update"),
                                 onPressed: _showUpdateConfirmationDialog,
                                 style: ButtonStyle(
                                   backgroundColor:

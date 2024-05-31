@@ -83,6 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
               ),
               ListTile(
+                key: const Key("logout"),
                 leading: const Icon(Icons.logout),
                 title: const Text("L O G   O U T"),
                 onTap: () {
@@ -180,6 +181,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     : Colors.transparent,
               ),
               BottomNavigationBarItem(
+                key: const Key("profile_icon"),
                 icon: const Icon(Icons.person_rounded),
                 label: 'Profile',
                 backgroundColor: _selectedIndex == 2

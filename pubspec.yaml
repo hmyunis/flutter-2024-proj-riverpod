@@ -43,6 +43,8 @@ dependencies:
   test: ^1.25.2
   equatable: ^2.0.3
   mocktail: 1.0.3
+  integration_test:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

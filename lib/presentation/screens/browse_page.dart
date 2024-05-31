@@ -109,7 +109,42 @@ class BrowsePage extends ConsumerWidget {
                               .read(gameListProvider(
                                       ref.read(userSessionProvider).token!)
                                   .notifier)
-                              .refresh();
+                              .refresh()
+                              .whenComplete(() {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Row(
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle_rounded,
+                                      color: Colors.green,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Database sync successful!",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                duration: const Duration(
+                                  seconds: 1,
+                                ),
+                                backgroundColor:
+                                    Colors.blueGrey.withOpacity(0.5),
+                                behavior: SnackBarBehavior.floating,
+                                margin:
+                                    const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              ),
+                            );
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent[900],

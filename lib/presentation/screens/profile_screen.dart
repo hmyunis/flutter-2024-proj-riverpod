@@ -333,7 +333,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   context: context,
                                   builder: (context) => AvatarPickerDialog(),
                                 );
-                                showSuccessSnackBar("Avatar set successfully.");
+                                showSuccessSnackBar(
+                                    "Avatar saved successfully.");
                               },
                               icon: const Icon(
                                 Icons.edit,

@@ -42,12 +42,76 @@ class _RoleMgtPannelState extends ConsumerState<RoleMgtPannel> {
           ref
               .read(userListProvider(ref.read(userSessionProvider).token!)
                   .notifier)
-              .promoteUser(userId);
+              .promoteUser(userId)
+              .whenComplete(() {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Row(
+                  children: [
+                    const Icon(
+                      Icons.keyboard_double_arrow_up,
+                      color: Colors.green,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Flexible(
+                      child: Text(
+                        'You made [UID: $userId] an admin.',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                backgroundColor: Colors.blueGrey.withOpacity(0.7),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            );
+          });
         } else {
           ref
               .read(userListProvider(ref.read(userSessionProvider).token!)
                   .notifier)
-              .demoteUser(userId);
+              .demoteUser(userId)
+              .whenComplete(() {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Row(
+                  children: [
+                    const Icon(
+                      Icons.keyboard_double_arrow_down,
+                      color: Colors.red,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Flexible(
+                      child: Text(
+                        'You demoted [UID: $userId].',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                backgroundColor: Colors.blueGrey.withOpacity(0.7),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            );
+          });
         }
       }
     }
@@ -158,7 +222,9 @@ class _RoleMgtPannelState extends ConsumerState<RoleMgtPannel> {
             ElevatedButton.icon(
               onPressed: () {
                 saveChanges();
-                Navigator.pop(context);
+                Future.delayed(const Duration(seconds: 1)).whenComplete(() {
+                  Navigator.of(context).pop();
+                });
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.blue[700]),

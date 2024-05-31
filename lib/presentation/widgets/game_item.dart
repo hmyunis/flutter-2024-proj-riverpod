@@ -7,25 +7,91 @@ import '../../models/game.dart';
 import '../../providers/user_session_provider.dart';
 import '../screens/game_detail_page.dart';
 
-class GameItem extends ConsumerStatefulWidget {
+class GameItem extends ConsumerWidget {
   const GameItem(this.game, this.isStarred, {super.key});
 
   final Game game;
   final bool isStarred;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _GameItemState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    void showCollectionSnackBar(String gameTitle, bool isAdded) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(
+                isAdded ? Icons.star_rounded : Icons.star_outline_rounded,
+                size: 32.0,
+                color: Colors.amber,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Flexible(
+                child: Text(
+                  isAdded
+                      ? '$gameTitle is added to favorites.'
+                      : '$gameTitle is removed from favorites.',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+              )
+            ],
+          ),
+          backgroundColor: Colors.blueGrey.withOpacity(0.7),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      );
+    }
 
-class _GameItemState extends ConsumerState<GameItem> {
-  @override
-  Widget build(BuildContext context) {
+    void showSuccessSnackBar(String message) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(
+                Icons.check_circle,
+                color: Colors.green,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Flexible(
+                child: Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+              )
+            ],
+          ),
+          backgroundColor: Colors.blueGrey.withOpacity(0.7),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      );
+    }
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => GameDetailPage(game: widget.game),
+            builder: (context) => GameDetailPage(game: game),
           ),
         );
       },
@@ -42,7 +108,7 @@ class _GameItemState extends ConsumerState<GameItem> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                widget.game.imageUrl,
+                game.imageUrl,
                 fit: BoxFit.fill,
                 isAntiAlias: true,
               ),
@@ -57,9 +123,9 @@ class _GameItemState extends ConsumerState<GameItem> {
                 ),
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  widget.game.title.length > 15
-                      ? '${widget.game.title.substring(0, 15)}...'
-                      : widget.game.title,
+                  game.title.length > 15
+                      ? '${game.title.substring(0, 15)}...'
+                      : game.title,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -73,22 +139,24 @@ class _GameItemState extends ConsumerState<GameItem> {
               right: 0,
               child: IconButton(
                 onPressed: () async {
-                  if (widget.isStarred) {
+                  if (isStarred) {
                     await ref
                         .read(collectionListProvider(
                                 ref.read(userSessionProvider).id!)
                             .notifier)
-                        .removeGameFromCollection(widget.game);
+                        .removeGameFromCollection(game);
+                    showCollectionSnackBar(game.title, false);
                   } else {
                     await ref
                         .read(collectionListProvider(
                                 ref.read(userSessionProvider).id!)
                             .notifier)
-                        .addGameToCollection(widget.game);
+                        .addGameToCollection(game);
+                    showCollectionSnackBar(game.title, true);
                   }
                   ref.invalidate(gameListProvider);
                 },
-                icon: widget.isStarred
+                icon: isStarred
                     ? const Icon(Icons.star, color: Colors.amber)
                     : const Icon(Icons.star_border, color: Colors.amber),
                 padding: const EdgeInsets.all(5),

@@ -31,6 +31,7 @@ class UserNotifier extends AutoDisposeFamilyAsyncNotifier<List<User>, String> {
 
   Future<User> getCurrentUser() async {
     final UsersRepository usersRepository = UsersRepository(UsersApiService());
+    await refresh();
     return await usersRepository.getCurrentUser(token);
   }
 

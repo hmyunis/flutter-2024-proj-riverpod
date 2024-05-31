@@ -38,6 +38,90 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     super.dispose();
   }
 
+  void showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red.withOpacity(0.3),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+      ),
+    );
+  }
+
+  void showSuccessSnackBar(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(
+              Icons.check_circle,
+              color: Colors.green,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Flexible(
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                ),
+              ),
+            )
+          ],
+        ),
+        backgroundColor: Colors.blueGrey.withOpacity(0.7),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      ),
+    );
+  }
+
+  String isValidEmail(email) {
+    if (email == null || email.isEmpty) {
+      return 'Email cannot be null or empty.';
+    }
+
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+    if (!emailRegex.hasMatch(email)) {
+      return 'Email address is not in the correct format.';
+    }
+
+    final emailParts = email.split('@');
+    final username = emailParts[0];
+    final domain = emailParts[1];
+
+    bool isValidUsername(String username) {
+      final usernameRegex = RegExp(r'^[\w\-]+$');
+      return usernameRegex.hasMatch(username);
+    }
+
+    bool isValidDomain(String domain) {
+      final domainRegex = RegExp(r'^[\w\-]+(\.[a-zA-Z]{2,4})+$');
+      return domainRegex.hasMatch(domain);
+    }
+
+    if (username.isEmpty || !isValidUsername(username)) {
+      return 'Username is not valid.';
+    }
+
+    if (domain.isEmpty || !isValidDomain(domain)) {
+      return 'Domain is not valid.';
+    }
+
+    return 'true';
+  }
+
   Future<void> _showUpdateConfirmationDialog() async {
     bool? confirmed = await showDialog<bool>(
       context: context,
@@ -71,6 +155,33 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     if (!mounted) return;
 
     if (confirmed != null && confirmed) {
+      final String username = _usernameController.text.trim();
+      final String email = _emailController.text.trim();
+      final String password = _passwordController.text.trim();
+
+      if (username.isEmpty || password.isEmpty || email.isEmpty) {
+        showErrorSnackBar("Please fill in all three fields.");
+        return;
+      }
+
+      if (username.length < 4 || password.length < 8) {
+        if (username.length < 4 && password.length >= 8) {
+          showErrorSnackBar("Username must be at least 4 characters.");
+        }
+        if (username.length >= 4 && password.length < 8) {
+          showErrorSnackBar("Password must be at least 8 characters.");
+        }
+        if (username.length < 4 && password.length < 8) {
+          showErrorSnackBar("Username and password are too short.");
+        }
+        return;
+      }
+
+      if (isValidEmail(email) != 'true') {
+        showErrorSnackBar(isValidEmail(email));
+        return;
+      }
+
       ref
           .read(userListProvider(ref.read(userSessionProvider).token!).notifier)
           .updateUser(
@@ -82,15 +193,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 role: ref.read(userSessionProvider).role,
               ),
               _passwordController.text);
-      ref.read(userSessionProvider.notifier).setUser(User(
-            id: ref.read(userSessionProvider).id,
-            username: _usernameController.text,
-            email: _emailController.text,
-            joinDate: ref.read(userSessionProvider).joinDate,
-            role: ref.read(userSessionProvider).role,
-            token: ref.read(userSessionProvider).token,
-          ));
+      ref.read(userSessionProvider.notifier).setUser(
+            User(
+              id: ref.read(userSessionProvider).id,
+              username: _usernameController.text,
+              email: _emailController.text,
+              joinDate: ref.read(userSessionProvider).joinDate,
+              role: ref.read(userSessionProvider).role,
+              token: ref.read(userSessionProvider).token,
+            ),
+          );
       ref.invalidate(currentUserProvider);
+      showSuccessSnackBar("Account updated successfully.");
     }
   }
 
@@ -138,6 +252,37 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               role: ref.read(userSessionProvider).role,
             ),
           );
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Row(
+            children: [
+              Icon(
+                Icons.delete_forever,
+                color: Colors.red,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Flexible(
+                child: Text(
+                  'Account deleted successfully.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+              )
+            ],
+          ),
+          backgroundColor: Colors.red.withOpacity(0.5),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      );
       context.go('/');
     }
   }
@@ -188,6 +333,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   context: context,
                                   builder: (context) => AvatarPickerDialog(),
                                 );
+                                showSuccessSnackBar("Avatar set successfully.");
                               },
                               icon: const Icon(
                                 Icons.edit,

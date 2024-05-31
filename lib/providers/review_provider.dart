@@ -84,6 +84,16 @@ class ReviewNotifier extends AutoDisposeAsyncNotifier<List<Review>> {
   Future<void> addGameRating(Review review) async {
     final ReviewsRepository reviewsRepository =
         ReviewsRepository(ReviewsApiService());
+    final List<Review> allReviews =
+        await reviewsRepository.getReviewsByGameId(review.gameId);
+    bool userAlreadyRated = false;
+    for (var r in allReviews) {
+      if (r.userId == review.userId && r.comment == "") {
+        userAlreadyRated = true;
+        break;
+      }
+    }
+    if (userAlreadyRated) return;
     await reviewsRepository.addReview(Review(
       userId: review.userId,
       gameId: review.gameId,
@@ -99,8 +109,8 @@ class ReviewNotifier extends AutoDisposeAsyncNotifier<List<Review>> {
         ReviewsRepository(ReviewsApiService());
     final allReviews =
         await reviewsRepository.getReviewsByGameId(review.gameId);
-    final Review reviewToBeUpdated = allReviews.firstWhere(
-        (review) => review.userId == review.userId && review.comment == "");
+    final Review reviewToBeUpdated = allReviews
+        .firstWhere((r) => r.userId == review.userId && r.comment == "");
     await reviewsRepository.updateReview(
         reviewToBeUpdated.id!,
         Review(
@@ -131,8 +141,8 @@ class ReviewNotifier extends AutoDisposeAsyncNotifier<List<Review>> {
         ReviewsRepository(ReviewsApiService());
     final allReviews =
         await reviewsRepository.getReviewsByGameId(review.gameId);
-    final Review reviewToBeUpdated = allReviews.firstWhere((review) =>
-        review.userId == review.userId && review.comment == review.comment);
+    final Review reviewToBeUpdated = allReviews.firstWhere(
+        (r) => r.userId == review.userId && r.comment == review.comment);
     await reviewsRepository.updateReview(
         reviewToBeUpdated.id!,
         Review(
@@ -151,8 +161,8 @@ class ReviewNotifier extends AutoDisposeAsyncNotifier<List<Review>> {
     final allReviews =
         await reviewsRepository.getReviewsByGameId(review.gameId);
     final Review reviewToBeDeleted = allReviews.firstWhere(
-      (review) =>
-          review.userId == review.userId && review.comment == review.comment,
+      (r) =>
+          r.userId == review.userId && r.comment == review.comment,
     );
     await reviewsRepository.deleteReview(reviewToBeDeleted.id!);
 

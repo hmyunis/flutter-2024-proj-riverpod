@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/game_provider.dart';
 
 import '../../providers/collection_provider.dart';
 import '../../models/game.dart';
@@ -71,20 +72,21 @@ class _GameItemState extends ConsumerState<GameItem> {
               top: 0,
               right: 0,
               child: IconButton(
-                onPressed: () {
+                onPressed: () async {
                   if (widget.isStarred) {
-                    ref
+                    await ref
                         .read(collectionListProvider(
                                 ref.read(userSessionProvider).id!)
                             .notifier)
                         .removeGameFromCollection(widget.game);
                   } else {
-                    ref
+                    await ref
                         .read(collectionListProvider(
                                 ref.read(userSessionProvider).id!)
                             .notifier)
                         .addGameToCollection(widget.game);
                   }
+                  ref.invalidate(gameListProvider);
                 },
                 icon: widget.isStarred
                     ? const Icon(Icons.star, color: Colors.amber)

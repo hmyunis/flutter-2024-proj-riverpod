@@ -113,44 +113,49 @@ class _CommentSectionState extends ConsumerState<CommentSection> {
     }
 
     if (confirmed) {
-      ref.read(reviewListProvider.notifier).updateGameComment(
-          Review(
-            userId: review.userId,
-            gameId: review.gameId,
-            comment: review.comment,
-            rating: 0,
-          ),
-          _commentController.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.check_circle,
-                color: Colors.green,
+      ref
+          .read(reviewListProvider.notifier)
+          .updateGameComment(
+              Review(
+                userId: review.userId,
+                gameId: review.gameId,
+                comment: review.comment,
+                rating: 0,
               ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                "Comment updated successfully.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18.0,
+              _commentController.text)
+          .whenComplete(() {
+        ref.invalidate(gameRatingCommentsProvider);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
                 ),
-              )
-            ],
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "Comment updated successfully.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                )
+              ],
+            ),
+            duration: const Duration(seconds: 1),
+            backgroundColor: Colors.blueGrey.withOpacity(0.5),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
           ),
-          duration: const Duration(seconds: 1),
-          backgroundColor: Colors.blueGrey.withOpacity(0.5),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-        ),
-      );
+        );
+      });
     }
   }
 

@@ -85,6 +85,7 @@ class _CommentBoxState extends ConsumerState<CommentBox> {
                         comment: _commentController.text,
                         rating: 0,
                       ));
+                  ref.invalidate(gameRatingCommentsProvider);
                   _commentController.clear();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

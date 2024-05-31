@@ -113,7 +113,7 @@ class CollectionNotifier extends AutoDisposeFamilyAsyncNotifier<List, int> {
     final collectionId = col[0].id;
 
     await collectionsRepository.deleteCollection(collectionId!);
-    await refresh();
+    // await refresh();
   }
 
   Future<void> addGameToCollection(Game game) async {

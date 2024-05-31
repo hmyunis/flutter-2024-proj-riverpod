@@ -22,6 +22,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
   }
 
+  void showErrorSnackbar(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red.withOpacity(0.3),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,20 +111,45 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      if (_usernameController.text.isNotEmpty &&
-                          _passwordController.text.isNotEmpty) {
-                        ref.read(authProvider.notifier).login(
-                              username: _usernameController.text,
-                              password: _passwordController.text,
-                            );
-                            context.go('/loading');
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please fill in all fields'),
-                          ),
-                        );
+                      // Input Validation
+                      final String username = _usernameController.text.trim();
+                      final String password = _passwordController.text.trim();
+
+                      if (username.isEmpty || password.isEmpty) {
+                        if (username.isEmpty && password.isNotEmpty) {
+                          showErrorSnackbar("Username cannot be empty.");
+                        }
+                        if (password.isEmpty && username.isNotEmpty) {
+                          showErrorSnackbar("Password cannot be empty.");
+                        }
+                        if (username.isEmpty && password.isEmpty) {
+                          showErrorSnackbar(
+                              "Please fill in all of the fields.");
+                        }
+                        return;
                       }
+
+                      if (username.length < 4 || password.length < 8) {
+                        if (username.length < 4 && password.length >= 8) {
+                          showErrorSnackbar(
+                              "Username must be at least 4 characters.");
+                        }
+                        if (username.length >= 4 && password.length < 8) {
+                          showErrorSnackbar(
+                              "Password must be at least 8 characters.");
+                        }
+                        if (username.length < 4 && password.length < 8) {
+                          showErrorSnackbar(
+                              "Username and password are too short.");
+                        }
+                        return;
+                      }
+
+                      ref.read(authProvider.notifier).login(
+                            username: _usernameController.text,
+                            password: _passwordController.text,
+                          );
+                      context.go('/loading');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueGrey[500],

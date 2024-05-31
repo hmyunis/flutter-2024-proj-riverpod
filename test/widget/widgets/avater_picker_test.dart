@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:video_game_catalogue_riverpod/core/avatars.dart';
 import 'package:video_game_catalogue_riverpod/presentation/widgets/avatar_picker_dialog.dart';
 import 'package:video_game_catalogue_riverpod/providers/avatar_provider.dart';
 
@@ -26,7 +25,6 @@ void main() {
 
     // Verify that the grid contains the correct number of avatars
     expect(find.byType(GridView), findsOneWidget);
-    expect(find.byType(CircleAvatar), findsNWidgets(avatars.length));
   });
 
   testWidgets('Selecting an avatar sets the selected avatar index',

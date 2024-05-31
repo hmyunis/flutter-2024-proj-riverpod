@@ -4,18 +4,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:video_game_catalogue_riverpod/models/game.dart';
 import 'package:video_game_catalogue_riverpod/presentation/widgets/edit_delete.dart';
 import 'package:video_game_catalogue_riverpod/presentation/widgets/game_info.dart';
+import 'package:video_game_catalogue_riverpod/providers/game_provider.dart';
 import 'package:video_game_catalogue_riverpod/providers/user_session_provider.dart';
 
 void main() {
   testWidgets('GameInfo widget should display game information',
       (WidgetTester tester) async {
     // Wrap the widget in ProviderScope for testing with Riverpod
+    final mockUserSessionProvider = UserSessionNotifier();
+    final mockGameListProvider = GameNotifier();
+
+    // Build the widget under test
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          userSessionProvider.overrideWithValue(
-            UserSession(role: 'owner'), // Set the user's role
-          ),
+          userSessionProvider.overrideWith((ref) => mockUserSessionProvider),
+          // gameListProvider.overrideWith((ref) => mockGameListProvider),
         ],
         child: MaterialApp(
           home: Scaffold(
@@ -50,9 +54,8 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          userSessionProvider.overrideWithValue(
-            UserSession(role: 'user'), // Set a different user role
-          ),
+          userSessionProvider.overrideWith((ref) => mockUserSessionProvider),
+          // gameListProvider.overrideWith((ref) => mockGameListProvider),
         ],
         child: MaterialApp(
           home: Scaffold(

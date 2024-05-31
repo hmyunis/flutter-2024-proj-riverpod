@@ -25,15 +25,16 @@ void main() {
     );
 
     // Verify that the dialog displays the user's information correctly
-    expect(find.text('User ID:'), findsOneWidget);
+    expect(find.text("Account details"), findsOneWidget);
+    expect(find.text('User ID: '), findsOneWidget);
     expect(find.text(user.id.toString()), findsOneWidget);
-    expect(find.text('Username:'), findsOneWidget);
+    expect(find.text('Username: '), findsOneWidget);
     expect(find.text(user.username), findsOneWidget);
-    expect(find.text('Email:'), findsOneWidget);
+    expect(find.text('Email: '), findsOneWidget);
     expect(find.text(user.email), findsOneWidget);
-    expect(find.text('Join date:'), findsOneWidget);
+    expect(find.text('Join date: '), findsOneWidget);
     expect(find.text(user.joinDate), findsOneWidget);
-    expect(find.text('Role:'), findsOneWidget);
+    expect(find.text('Role: '), findsOneWidget);
     expect(find.text(user.role.toUpperCase()), findsOneWidget);
   });
 }

@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:video_game_catalogue_riverpod/presentation/screens/home_screen.dart';
-import 'package:video_game_catalogue_riverpod/presentation/screens/loading_screen.dart';
+
 import 'package:video_game_catalogue_riverpod/providers/auth_provider.dart';
 import 'package:video_game_catalogue_riverpod/providers/user_session_provider.dart';
 
-// Mock AuthNotifier for testing
 class MockAuthNotifier extends Mock implements AuthNotifier {}
 
-// Mock UserSessionNotifier for testing
 class MockUserSessionNotifier extends Mock implements UserSessionNotifier {}
 
-// Initialize mock providers
 final mockAuthNotifier = MockAuthNotifier();
 final mockUserSessionNotifier = MockUserSessionNotifier();
 
@@ -24,9 +20,8 @@ void main() {
         ProviderScope(
           overrides: [
             userSessionProvider.overrideWith((ref) => mockUserSessionNotifier),
-            // authProvider.overrideWith((ref) => mockAuthNotifier),
           ],
-          child: MaterialApp(
+          child: const MaterialApp(
             home: Text(""),
           ),
         ),
@@ -38,12 +33,10 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            // authProvider.overrideWithProvider(
-            //     StateNotifierProvider((ref) => mockAuthNotifier)),
             userSessionProvider.overrideWithProvider(
                 StateNotifierProvider((ref) => mockUserSessionNotifier)),
           ],
-          child: MaterialApp(
+          child: const MaterialApp(
             home: Scaffold(),
           ),
         ),
@@ -57,7 +50,7 @@ void main() {
           overrides: [
             userSessionProvider.overrideWith((ref) => mockUserSessionNotifier),
           ],
-          child: MaterialApp(
+          child: const MaterialApp(
             home: Column(
               children: [SizedBox()],
             ),
@@ -91,7 +84,7 @@ void main() {
           overrides: [
             userSessionProvider.overrideWith((ref) => mockUserSessionNotifier),
           ],
-          child: MaterialApp(
+          child: const MaterialApp(
             home: Center(),
           ),
         ),

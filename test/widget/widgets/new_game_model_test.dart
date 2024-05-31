@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mockito/mockito.dart';
-import 'package:video_game_catalogue_riverpod/models/game.dart';
 import 'package:video_game_catalogue_riverpod/presentation/widgets/new_game_modal.dart';
 import 'package:video_game_catalogue_riverpod/providers/user_session_provider.dart';
-
-// Mock UserSessionProvider
 
 void main() {
   group('NewGameModal Widget Tests', () {
     final mockUserSessionProvider = UserSessionNotifier();
     testWidgets('Test NewGameModal Widget', (WidgetTester tester) async {
-      // Create a mock UserSessionProvider
-
-      // Provide the mock UserSessionProvider in the test widget tree
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
@@ -32,7 +25,6 @@ void main() {
       expect(find.byType(TextField), findsNWidgets(7));
       expect(find.text('Game Details'), findsOneWidget);
 
-      // Enter text into the title text field
       final Finder titleField = find.byWidgetPredicate((widget) {
         if (widget is TextField) {
           final InputDecoration? decoration =
@@ -96,7 +88,6 @@ void main() {
         return false;
       });
 
-      // Verify the TextFields are found
       expect(titleField, findsOneWidget);
       expect(imageUrlField, findsOneWidget);
       expect(genreField, findsOneWidget);
@@ -105,7 +96,6 @@ void main() {
       expect(releaseDateField, findsOneWidget);
       expect(descriptionField, findsOneWidget);
 
-      // Enter text into the TextFields
       await tester.enterText(titleField, 'Test Title');
       await tester.enterText(imageUrlField, 'https://example.com/image.jpg');
       await tester.enterText(genreField, 'Action');
@@ -114,7 +104,6 @@ void main() {
       await tester.enterText(releaseDateField, '2024-05-31');
       await tester.enterText(descriptionField, 'This is a test description.');
 
-      // Verify the text has been entered
       expect(find.text('Test Title'), findsOneWidget);
       expect(find.text('https://example.com/image.jpg'), findsOneWidget);
       expect(find.text('Action'), findsOneWidget);

@@ -6,7 +6,6 @@ import 'package:video_game_catalogue_riverpod/presentation/widgets/user_details_
 void main() {
   testWidgets('UserDetailsDialog displays user information',
       (WidgetTester tester) async {
-    // Create a user object with sample data
     final user = User(
       id: 1,
       username: 'john_doe',
@@ -15,7 +14,6 @@ void main() {
       role: 'admin',
     );
 
-    // Build the UserDetailsDialog widget
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -24,7 +22,6 @@ void main() {
       ),
     );
 
-    // Verify that the dialog displays the user's information correctly
     expect(find.text("Account details"), findsOneWidget);
     expect(find.text('User ID: '), findsOneWidget);
     expect(find.text(user.id.toString()), findsOneWidget);

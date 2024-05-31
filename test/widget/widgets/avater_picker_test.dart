@@ -17,13 +17,10 @@ void main() {
       ),
     );
 
-    // Verify the dialog title
     expect(find.text('Select an Avatar'), findsOneWidget);
 
-    // Verify the cancel button
     expect(find.text('Cancel'), findsOneWidget);
 
-    // Verify that the grid contains the correct number of avatars
     expect(find.byType(GridView), findsOneWidget);
   });
 
@@ -39,11 +36,9 @@ void main() {
       ),
     );
 
-    // Tap the first avatar
     await tester.tap(find.byType(CircleAvatar).first);
     await tester.pumpAndSettle();
 
-    // Verify that the avatarProvider's state has been set to 0
     final container = ProviderContainer();
     expect(container.read(avatarProvider), 0);
   });
@@ -60,11 +55,9 @@ void main() {
       ),
     );
 
-    // Tap the first avatar
     await tester.tap(find.byType(CircleAvatar).first);
     await tester.pumpAndSettle();
 
-    // Verify that the dialog has closed
     expect(find.byType(AlertDialog), findsNothing);
   });
 
@@ -80,11 +73,9 @@ void main() {
       ),
     );
 
-    // Tap the cancel button
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
 
-    // Verify that the dialog has closed
     expect(find.byType(AlertDialog), findsNothing);
   });
 }
